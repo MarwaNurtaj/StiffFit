@@ -54,7 +54,7 @@ ROOT_URLCONF = 'stiffFit.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['/Users/shafi/OneDrive/Documents/GitHub/StiffFit/stiffFit/gym/templates/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
