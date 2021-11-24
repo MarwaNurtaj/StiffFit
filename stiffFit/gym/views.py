@@ -6,14 +6,11 @@ from .models import *
 import uuid
 from django.conf import settings
 from django.core.mail import send_mail
-from django.contrib.auth import authenticate,login
+from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+
 # Create your views here.
-
-@login_required
-def home(request):
-    return render(request , 'gym/home.html')
-
 
 
 def login_attempt(request):
@@ -24,22 +21,22 @@ def login_attempt(request):
         user_obj = User.objects.filter(username = username).first()
         if user_obj is None:
             messages.success(request, 'User not found.')
-            return redirect('/login')
+            return redirect('login_attempt')
         
         
         profile_obj = Profile.objects.filter(user = user_obj ).first()
 
         if not profile_obj.is_verified:
             messages.success(request, 'Profile is not verified check your mail.')
-            return redirect('login')
+            return redirect('login_attempt')
 
         user = authenticate(username = username , password = password)
         if user is None:
             messages.success(request, 'Wrong password.')
-            return redirect('login')
+            return redirect('login_attempt')
         
         login(request , user)
-        return redirect('/')
+        return redirect('home')
 
     return render(request , 'gym/login.html')
 
@@ -54,11 +51,11 @@ def register_attempt(request):
         try:
             if User.objects.filter(username = username).first():
                 messages.success(request, 'Username is taken.')
-                return redirect('register')
+                return redirect('register_attempt')
 
             if User.objects.filter(email = email).first():
                 messages.success(request, 'Email is taken.')
-                return redirect('register')
+                return redirect('register_attempt')
             
             user_obj = User(username = username , email = email)
             user_obj.set_password(password)
@@ -92,11 +89,11 @@ def verify(request , auth_token):
         if profile_obj:
             if profile_obj.is_verified:
                 messages.success(request, 'Your account is already verified.')
-                return redirect('login')
+                return redirect('login_attempt')
             profile_obj.is_verified = True
             profile_obj.save()
             messages.success(request, 'Your account has been verified.')
-            return redirect('login')
+            return redirect('login_attempt')
         else:
             return redirect('error')
     except Exception as e:
@@ -106,9 +103,10 @@ def verify(request , auth_token):
 def error_page(request):
     return  render(request , 'gym/error.html')
 
-<<<<<<< HEAD
+
 # Create your views here.
 from .models import*
+@login_required
 def home(request):
 	return render(request,'gym/homepage.html')
 
@@ -117,8 +115,10 @@ def trainer(request):
 
 def trainee(request):
 	return HttpResponse('trainee')
-=======
->>>>>>> origin/rafsan
+
+def logoutUser(request):
+	logout(request)
+	return redirect('login_attempt')
 
 
 
