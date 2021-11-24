@@ -24,6 +24,14 @@ from .forms import CreateUserForm
 
 # Create your views here.
 from .models import*
+def home(request):
+	return render(request,'gym/homepage.html')
+
+def trainer(request):
+	return render(request,'gym/trainer.html')
+
+def trainee(request):
+	return HttpResponse('trainee')
 
 # Create your views here.
 def registerPage(request):
