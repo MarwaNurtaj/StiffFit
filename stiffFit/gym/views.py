@@ -111,8 +111,8 @@ def home(request):
 	return render(request,'gym/homepage.html')
 
 def trainer(request):
-	return render(request,'gym/trainer.html')
-
+	return HttpResponse('trainer')
+    
 def trainee(request):
 	return HttpResponse('trainee')
 
