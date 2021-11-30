@@ -111,10 +111,10 @@ def home(request):
 	return render(request,'gym/homepage.html')
 
 def trainer(request):
-	return HttpResponse('trainer')
-    
+	return render(request,'gym/trainer.html')
+
 def trainee(request):
-	return HttpResponse('trainee')
+	return render(request,'gym/trainee.html')
 
 def logoutUser(request):
 	logout(request)
