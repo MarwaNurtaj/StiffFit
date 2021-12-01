@@ -18,7 +18,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="{% url 'register_attempt'%}"><span class="user"></span> Sign Up</a></li>
-        <li><a href="{% url 'login_attempt'%}"><span class="log-in"></span> Login</a></li>
+        <!--li><a href="{% url 'login_attempt'%}"><span class="log-in"></span> Login</a></li-->
        <li> <h5 >Welcome, {{request.user.username}}</h5></li>
        <li><span><a class="hello-msg" href="{% url 'logout' %}">Logout</a></span></li>
       </ul>

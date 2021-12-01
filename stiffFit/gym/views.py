@@ -51,6 +51,7 @@ def register_attempt(request):
         try:
             if User.objects.filter(username = username).first():
                 messages.success(request, 'Username is taken.')
+           
                 return redirect('register_attempt')
 
             if User.objects.filter(email = email).first():
@@ -60,11 +61,13 @@ def register_attempt(request):
             user_obj = User(username = username , email = email)
             user_obj.set_password(password)
             user_obj.save()
+            
             auth_token = str(uuid.uuid4())
             profile_obj = Profile.objects.create(user = user_obj , auth_token = auth_token)
             profile_obj.save()
-            send_mail_after_registration(email , auth_token)
-            return redirect('token')
+            send_mail_after_registration( email , auth_token)
+            return redirect('token_send')
+            
 
         except Exception as e:
             print(e)
@@ -126,9 +129,9 @@ def logoutUser(request):
 
 
 
-def send_mail_after_registration(email , token):
-    subject = 'Your accounts need to be verified'
-    message = f'Hi paste the link to verify your account http://127.0.0.1:8000/verify/{token}'
+def send_mail_after_registration( email , token):
+    subject = 'Your accounts need to be verified (StiffFit) '
+    message = f'Welcome to StiffFit.Just copy and paste the link to verify your account http://127.0.0.1:8000/verify/{token}'
     email_from = settings.EMAIL_HOST_USER
     recipient_list = [email]
     send_mail(subject, message , email_from ,recipient_list )
