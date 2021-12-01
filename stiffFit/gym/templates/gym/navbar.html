@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<nav class="navbar navbar-dark bg-dark">
+
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Stiff Fit</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li class="active"></li><a href="#">Home</a></li>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="{% url 'trainer'%}">Trainer<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="{% url 'trainer' %}"
+                >Yoga Trainer</a></li>
+              <li><a href="{% url 'trainer' %}"
+                >Gym Master</a></li>
+              <li><a href="{% url 'trainer' %}"
+                >Nutritionist</a></li>
+            </ul>
+        </li>
+
+        <li><a href="{% url 'trainee' %}">Trainee</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="{% url 'register_attempt'%}"><span class="user"></span> Sign Up</a></li>
+        <li><a href="{% url 'login_attempt'%}"><span class="log-in"></span> Login</a></li>
+       <li> <h5 >Welcome, {{request.user.username}}</h5></li>
+       <li><span><a class="hello-msg" href="{% url 'logout' %}">Logout</a></span></li>
+      </ul>
+    </div>
+  </nav>
