@@ -21,7 +21,33 @@ class Banners(models.Model):
     def image_tag(self):
         return mark_safe('<img src="%s" width="80" />' % (self.img.url))
     
-
+class Trainer(models.Model):
+    CATEGORY = (
+                ('Yoga Trainer', 'Yoga Trainer'),
+                ('Gym Master', 'Gym Master'),
+                ('Nutritionist', 'Nutritionist'),
+                )
+    name = models.CharField(max_length=200, null=True)
+    category = models.CharField(max_length=200, null=True, choices=CATEGORY)
+    email = models.CharField(max_length=200, null=True)
+    phone = models.CharField(max_length=200, null=True)
+    profile_picture = models.ImageField(default="default_profile.jpg",null=True, blank=True)
+	
+    def __str__(self):
+        return self.name
     
+class Trainee(models.Model):
+    name = models.CharField(max_length=200, null=True)
+    age = models.FloatField(null=True)
+    height = models.FloatField(null=True)
+    weight = models.FloatField(null=True)
+    email = models.CharField(max_length=200, null=True)
+    phone = models.CharField(max_length=200, null=True)
+    profile_picture = models.ImageField(default="default_profile.jpg",null=True, blank=True)
+	
+    def __str__(self):
+        return self.name
+
+ 
     
     
