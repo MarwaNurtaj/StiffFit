@@ -20,6 +20,7 @@ class Banners(models.Model):
 
     def image_tag(self):
         return mark_safe('<img src="%s" width="80" />' % (self.img.url))
+<<<<<<< HEAD
     
 class Trainer(models.Model):
     CATEGORY = (
@@ -81,3 +82,27 @@ class Progress(models.Model):
  
     
     
+=======
+
+class Page(models.Model):
+    title = models.CharField(max_length=150)
+    detail=models.TextField()
+
+    def __str__(self):
+        return self.title
+
+class Faq(models.Model):
+    quest=models.TextField()
+    ans=models.TextField()
+
+    def __str__(self):
+        return self.quest
+
+class Enquiry(models.Model):
+    full_name=models.CharField(max_length=150)
+    email=models.CharField(max_length=150)
+    detail=models.TextField()
+
+    def __str__(self):
+        return self.full_name
+>>>>>>> origin/nurtaj

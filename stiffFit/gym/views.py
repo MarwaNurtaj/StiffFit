@@ -9,7 +9,7 @@ from django.core.mail import send_mail
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-
+from . import forms
 # Create your views here.
 
 
@@ -126,6 +126,11 @@ def trainee(request):
     context = {'trainee': trainee, 'package':package, 'progress':progress, 'total_trainee':total_trainee, 'pending':pending, 'progressing':progressing, 'completed':completed}
     return render(request,'gym/trainee.html', context)
 
+def page_detail(request,id):
+    page=Page.objects.get(id=id)
+    return render(request, 'gym/page.html' , {'page':page})
+
+
 def logoutUser(request):
 	logout(request)
 	return redirect('login_attempt')
@@ -144,3 +149,19 @@ def send_mail_after_registration( email , token):
     recipient_list = [email]
     send_mail(subject, message , email_from ,recipient_list )
     
+
+
+
+def faq_list(request):
+    faq=Faq.objects.all()
+    return render(request, 'gym/faq.html' ,{'faqs':faq})
+
+def enquiry_list(request):
+	msg=''
+	if request.method=='POST':
+		form=forms.EnquiryForm(request.POST)
+		if form.is_valid():
+			form.save()
+			msg='Data has been saved'
+	form=forms.EnquiryForm
+	return render(request, 'gym/enquiry.html',{'form':form,'msg':msg})
