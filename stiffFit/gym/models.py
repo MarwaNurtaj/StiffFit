@@ -20,3 +20,10 @@ class Banners(models.Model):
 
     def image_tag(self):
         return mark_safe('<img src="%s" width="80" />' % (self.img.url))
+
+class Page(models.Model):
+    title = models.CharField(max_length=150)
+    detail=models.TextField()
+
+    def __str__(self):
+        return self.title

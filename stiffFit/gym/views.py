@@ -116,6 +116,11 @@ def trainer(request):
 def trainee(request):
 	return render(request,'gym/trainee.html')
 
+def page_detail(request,id):
+    page=Page.objects.get(id=id)
+    return render(request, 'gym/page.html' , {'page':page})
+
+
 def logoutUser(request):
 	logout(request)
 	return redirect('login_attempt')
