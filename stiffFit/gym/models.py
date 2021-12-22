@@ -20,7 +20,17 @@ class Banners(models.Model):
 
     def image_tag(self):
         return mark_safe('<img src="%s" width="80" />' % (self.img.url))
-    
+
+
+
+
+
+
+
+
+
+
+
 class Trainer(models.Model):
     CATEGORY = (
                 ('Yoga Trainer', 'Yoga Trainer'),
@@ -63,10 +73,10 @@ class Package(models.Model):
 
 class Progress(models.Model):
     STATUS = (
-		        ('Pending', 'Pending'),
+('Pending', 'Pending'),
                 ('Progressing', 'Progressing' ),
                 ('Completed', 'Completed'),
-             )
+)
     trainee = models.ForeignKey(Trainee, null=True, on_delete=models.SET_NULL)
     trainer = models.ForeignKey(Trainer, null=True, on_delete=models.SET_NULL)
     package = models.ForeignKey(Package, null=True, on_delete=models.SET_NULL)
@@ -78,6 +88,28 @@ class Progress(models.Model):
     
     
 
- 
+
     
     
+
+class Page(models.Model):
+    title = models.CharField(max_length=150)
+    detail=models.TextField()
+
+    def __str__(self):
+        return self.title
+
+class Faq(models.Model):
+    quest=models.TextField()
+    ans=models.TextField()
+
+    def __str__(self):
+        return self.quest
+
+class Enquiry(models.Model):
+    full_name=models.CharField(max_length=150)
+    email=models.CharField(max_length=150)
+    detail=models.TextField()
+
+    def __str__(self):
+        return self.full_name

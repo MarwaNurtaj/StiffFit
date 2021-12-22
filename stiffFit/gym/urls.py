@@ -12,11 +12,14 @@ urlpatterns = [
     path('trainer/', views.trainer, name="trainer"),
     path('trainee/', views.trainee, name="trainee"),
 	path('logout/', views.logoutUser, name="logout"),
+	path('logout/', views.logoutUser, name="logout"),
+    path('pagedetail/<int:id>/',views.page_detail, name='pagedetail'),
+    path('faq/',views.faq_list, name='faq'),
+    path('enquiry/',views.enquiry_list, name='enquiry'),
 
-    path('' , views.login_attempt , name="login_attempt"),
 	path('home/' ,views.home  , name="home"),
     path('register/' , views.register_attempt , name="register_attempt"),
-    path('login/' , views.login_attempt , name="login_attempt"),
+    path('' , views.login_attempt , name="login_attempt"),
     path('token/' , views.token_send , name="token_send"),
     
     path('verify/<auth_token>' , views.verify , name="verify"),
