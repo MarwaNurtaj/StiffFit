@@ -9,7 +9,7 @@ from django.core.mail import send_mail
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-
+from . import forms
 # Create your views here.
 
 
@@ -139,3 +139,19 @@ def send_mail_after_registration( email , token):
     recipient_list = [email]
     send_mail(subject, message , email_from ,recipient_list )
     
+
+
+
+def faq_list(request):
+    faq=Faq.objects.all()
+    return render(request, 'gym/faq.html' ,{'faqs':faq})
+
+def enquiry_list(request):
+	msg=''
+	if request.method=='POST':
+		form=forms.EnquiryForm(request.POST)
+		if form.is_valid():
+			form.save()
+			msg='Data has been saved'
+	form=forms.EnquiryForm
+	return render(request, 'gym/enquiry.html',{'form':form,'msg':msg})

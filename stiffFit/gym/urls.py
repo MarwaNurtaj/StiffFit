@@ -14,6 +14,8 @@ urlpatterns = [
 	path('logout/', views.logoutUser, name="logout"),
 	path('logout/', views.logoutUser, name="logout"),
     path('pagedetail/<int:id>/',views.page_detail, name='pagedetail'),
+    path('faq/',views.faq_list, name='faq'),
+    path('enquiry/',views.enquiry_list, name='enquiry'),
 
 	path('home/' ,views.home  , name="home"),
     path('register/' , views.register_attempt , name="register_attempt"),
