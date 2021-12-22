@@ -12,6 +12,10 @@ admin.site.register(models.Trainee)
 admin.site.register(models.Package) 
 admin.site.register(models.Progress) 
 
+class NotifyAdmin(admin.ModelAdmin):
+    list_display=('notify_detail', 'read_by_user')
+admin.site.register(models.Notify,NotifyAdmin)    
+
 
 
 class PageAdmin(admin.ModelAdmin):

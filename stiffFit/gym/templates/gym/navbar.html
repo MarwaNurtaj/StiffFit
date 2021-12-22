@@ -1,4 +1,72 @@
 <!DOCTYPE html>
+{% load static %}
+<style>
+  @import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
+
+
+ *{
+  box-sizing: border-box;
+}
+body.Dark {
+  background-color: #292c35;
+
+} 
+
+body.Dark p {
+  background-color:black ;
+  color:white;
+  
+}
+
+.checkbox {
+  opacity: 0;
+  position: absolute;
+
+}
+
+ .label {
+   background-color: #111;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   border-radius: 50px;
+   position: relative;
+   padding: 5px;
+   height:26px;
+   width: 50px;
+   transform: scale(1.5);
+
+ }
+
+
+  .ball {
+    background-color: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    height: 22px;
+    width: 22px;
+   transition: transform 0.2s linear;
+
+}
+.checkbox:checked + .label .ball {
+  transform: translateX(24px);
+ 
+}
+
+ .fa-moon {
+   color: #f1c40f;
+ }
+ .fa-sun {
+   color: #f39c12;
+ }
+ .bi-bell-fill {
+   color:cornsilk;
+ }
+</style>
+<body>
+  <!--script src="{%static 'js/main.js' %}"></!--script-->
+
 <nav class="navbar navbar-dark bg-dark">
 
     <div class="container-fluid">
@@ -17,18 +85,42 @@
                 >Nutritionist</a></li>
             </ul>
         </li>
-
+        
         <li><a href="{% url 'trainee' %}">Trainee</a></li>
       </ul>
       <ul>
         <li><a href="{% url 'faq' %}">FAQ</a></li>
         <li><a href="{% url 'enquiry' %}">Enquiry</a></li>
+        <li>
+          
+          <a href="{% url 'notifs' %}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell-fill" viewBox="0 0 16 16">
+            <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
+          </svg></a>
+        
+        </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="{% url 'register_attempt'%}"><span class="user"></span> Sign Up</a></li>
         <!--li><a href="{% url 'login_attempt'%}"><span class="log-in"></span> Login</a></li-->
        <li> <h5 >Welcome, {{request.user.username}}</h5></li>
+       <li>
+         <input type="checkbox"
+         class="checkbox" id="checkbox">
+         <label for="checkbox" class="label">
+           <i class="fas fa-moon"></i>
+           <i class="fas fa-sun"></i>
+           <div class="ball"></div>
+         </label>
+         <script>
+          const chk = document.getElementById('checkbox');
+
+          chk.addEventListener('change', () => {
+            document.body.classList.toggle('Dark');
+          });
+         </script>
+       </li>
        <li><span><a class="hello-msg" href="{% url 'logout' %}">Logout</a></span></li>
       </ul>
     </div>
   </nav>
+  </body>
