@@ -8,4 +8,8 @@ admin.site.register(models.Banners)
 
 admin.site.register(models.Profile)
 
+class NotifyAdmin(admin.ModelAdmin):
+    list_display=('notify_detail', 'read_by_user')
+admin.site.register(models.Notify,NotifyAdmin)    
+
 

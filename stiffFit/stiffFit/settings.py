@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
+import os 
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -40,6 +40,55 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'gym',
 ]
+
+JAZZMIN_SETTINGS = {
+    # title of the window (Will default to current_admin_site.site_title if absent or None)
+    "site_title": "StiffFit Admin",
+
+    # Title on the login screen (19 chars max) (defaults to current_admin_site.site_header if absent or None)
+    "site_header": "StiffFit",
+
+    # Title on the brand (19 chars max) (defaults to current_admin_site.site_header if absent or None)
+    "site_brand": "StiffFit",
+
+    # Logo to use for your site, must be present in static files, used for brand on top left
+    "site_logo": "images/logo.png",
+
+    # CSS classes that are applied to the logo above
+    "site_logo_classes": "img-circle",
+
+    # Relative path to a favicon for your site, will default to site_logo if absent (ideally 32x32 px)
+    "site_icon": None,
+
+    # Welcome text on the login screen
+    "welcome_sign": "Welcome to the StiffFit",
+
+    # The model admin to search from the search bar, search bar omitted if excluded
+    "search_model": "auth.User",
+
+    # Field name on user model that contains avatar ImageField/URLField/Charfield or a callable that receives the user
+    "user_avatar": None,
+
+    ############
+    # Top Menu #
+    ############
+
+    # Links to put along the top menu
+    "topmenu_links": [
+
+        # Url that gets reversed (Permissions can be added)
+        {"name": "Home",  "url": "admin:index", "permissions": ["auth.view_user"]},
+
+        # external url that opens in a new window (Permissions can be added)
+        {"name": "Support", "url": "https://github.com/farridav/django-jazzmin/issues", "new_window": True},
+
+        # model admin to link to (Permissions checked against model)
+        {"model": "auth.User"},
+
+        # App with dropdown menu to all its models pages (Permissions checked against models)
+        {"app": "books"},
+    ],
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -125,9 +174,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-MEDIA_URL='/images/'
-
-
+MEDIA_URL='/images/','/media/'
+MEDIA_URL='/media/'
+MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 STATICFILES_DIRS = [
     BASE_DIR / "static"
 ]

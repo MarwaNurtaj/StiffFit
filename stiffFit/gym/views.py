@@ -9,7 +9,8 @@ from django.core.mail import send_mail
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-
+from django.core import serializers
+from django.http import JsonResponse
 # Create your views here.
 
 
@@ -120,12 +121,40 @@ def logoutUser(request):
 	logout(request)
 	return redirect('login_attempt')
 
+def notifs(request):
+	data=Notify.objects.all().order_by('-id')
+	return render(request, 'gym/notification.html')
 
+# Get All Notifications
+def get_notifs(request):
+	data=models.Notify.objects.all().order_by('-id')
+	notifStatus=False
+	jsonData=[]
+	totalUnread=0
+	for d in data:
+		try:
+			notifStatusData=models.NotifUserStatus.objects.get(user=request.user,notif=d)
+			if notifStatusData:
+				notifStatus=True
+		except models.NotifUserStatus.DoesNotExist:
+			notifStatus=False
+		if not notifStatus:
+			totalUnread=totalUnread+1
+		jsonData.append({
+				'pk':d.id,
+				'notify_detail':d.notify_detail,
+				'notifStatus':notifStatus
+			})
+	# jsonData=serializers.serialize('json', data)
+	return JsonResponse({'data':jsonData,'totalUnread':totalUnread})
 
-
-
-
-
+# Mark Read By user
+def mark_read_notif(request):
+	notif=request.GET['notif']
+	notif=models.Notify.objects.get(pk=notif)
+	user=request.user
+	models.NotifUserStatus.objects.create(notif=notif,user=user,status=True)
+	return JsonResponse({'bool':True})
 
 def send_mail_after_registration( email , token):
     subject = 'Your accounts need to be verified (StiffFit) '
