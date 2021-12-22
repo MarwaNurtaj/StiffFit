@@ -1,24 +1,12 @@
 {%  include 'gym/main.html' %}
 {% load static %}
+<style>
+    .card-header{
+        color=blue;
+    }
+</style>
 
 <br>
-<div class="row"  >
-    <div class="col-md-5">
-        <h5>TRAINEES:</h5>
-        <hr>
-        <div class="card card-body">
-            <a class="btn btn-primary btn-sm btm-block"href="">Enter as TRAINEES
-            </a>
-            <table class="table table-sm">
-                <tr>
-                    <th>Trainee</th>
-                    <th>Packages</th>
-                </tr>
-            </table>
-        </div>
-    </div>
-</div>
-
 <div class="row"  >
     <div class="col-md-5">
         <h5>TRAINEE'S INFORMATION:</h5>
@@ -34,8 +22,19 @@
                     <th>Weight</th>
                     <th>Email</th>
                     <th>Contact no.</th>
-
                 </tr>
+
+                {% for i in trainee %}
+                    <tr>
+                        <td>{{i.trainee}}</td>
+                        <td>{{i.age}}</td>
+                        <td>{{i.height}}</td>
+                        <td>{{i.weight}}</td>
+                        <td>{{i.email}}</td>
+                        <td>{{i.phone}}</td>
+                    </tr>
+                {% endfor%}
+
             </table>
         </div>
     </div>
@@ -43,24 +42,117 @@
 
 <div class="row"  >
     <div class="col-md-5">
+        <h5>PACKAGES:</h5>
+        <hr>
+        <div class="card card-body">
+            <a class="btn btn-primary btn-sm btm-block"href="">Enroll a Package
+            </a>
+            <table class="table table-sm">
+                <tr>
+                    <th>Package</th>
+                    <th>Type</th>
+                    <th>Price</th>
+                </tr>
+
+                {% for i in package %}
+                    <tr>
+                        <td>{{i.package}}</td>
+                        <td>{{i.type}}</td>
+                        <td>{{i.price}}</td>
+                    </tr>
+                {% endfor%}
+
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<div class="row"  >
+    <div class="col-md-5">
         <h5>TRAINEE'S PROGRESS:</h5>
         <hr>
         <div class="card card-body">
-            <a class="btn btn-primary btn-sm btm-block"href="">Enter as TRAINEES
+            <a class="btn btn-primary btn-sm btm-block"href="">Update Progress
             </a>
             <table class="table table-sm">
                 <tr>
                     <th>Name</th>
-                    <th>Completed Training</th>
-                    <th>Pending Training</th>
-                    <th>Suggestions</th>
-                    
-
+                    <th>Trainer</th>
+                    <th>Package</th>
+                    <th>Status</th>
+                    <th>Update</th>
                 </tr>
+
+                {% for i in progress %}
+                <tr>
+                    <td>{{i.trainee}}</td>
+                    <td>{{i.trainer}}</td>
+                    <td>{{i.package}}</td>
+                    <td>{{i.status}}</td>
+                    <td><a href="">Update</a></td>
+                </tr>
+            {% endfor%}
+
             </table>
         </div>
     </div>
 </div>  
+
+<div class="row">
+	<div class="col">
+		<div class="col-md">
+			<div class="card text-center text-black  mb-3" id="total_trainee">
+			  	<div class="card-header">
+			  		<h5 class="card-title">Total Trainee</h5>
+			  	</div>
+			  	<div class="card-body">
+			    	<h3 class="card-title">{{total_trainee}}</h3>
+			  	</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col">
+		<div class="col-md">
+			<div class="card1 text-center text-black  mb-3" id="training_pending">
+			  	<div class="card-header">
+			  		<h5 class="card-title">Pending</h5>
+			  	</div>
+			  	<div class="card-body">
+			    	<h3 class="card-title">{{pending}}</h3>
+			  	</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col">
+		<div class="col-md">
+			<div class="card2 text-center text-black  mb-3" id="training_progressing">
+			  	<div class="card-header">
+			  		<h5 class="card-title">Progressing</h5>
+			  	</div>
+			  	<div class="card-body">
+			    	<h3 class="card-title">{{progressing}}</h3>
+			  	</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="col">
+    <div class="col-md">
+        <div class="card2 text-center text-black  mb-3" id="training_completed">
+              <div class="card-header">
+                  <h5 class="card-title">Completed</h5>
+              </div>
+              <div class="card-body">
+                <h3 class="card-title">{{completed}}</h3>
+              </div>
+        </div>
+    </div>
+</div>
+</div>
 
 
 

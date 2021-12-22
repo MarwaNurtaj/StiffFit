@@ -56,15 +56,13 @@ class Package(models.Model):
                 )
     package = models.CharField(max_length=200, null=True)
     price = models.FloatField(null=True)
-    category = models.CharField(max_length=200, null=True, choices=TYPE)
-    date_of_enrolment = models.DateTimeField(auto_now_add=True, null = True)
-
+    type = models.CharField(max_length=200, null=True, choices=TYPE)
+    
     def __str__(self):
         return self.package
 
 class Progress(models.Model):
     STATUS = (
-                ('Not Applicable', 'Not Applicable' ),
 		        ('Pending', 'Pending'),
                 ('Progressing', 'Progressing' ),
                 ('Completed', 'Completed'),
@@ -72,8 +70,10 @@ class Progress(models.Model):
     trainee = models.ForeignKey(Trainee, null=True, on_delete=models.SET_NULL)
     trainer = models.ForeignKey(Trainer, null=True, on_delete=models.SET_NULL)
     package = models.ForeignKey(Package, null=True, on_delete=models.SET_NULL)
-    date_of_enrolment = models.DateTimeField(auto_now_add=True, null = True)
     status = models.CharField(max_length=200, null=True, choices=STATUS)
+    
+    def __str__(self):
+        return self.trainee.trainee
     
     
     
