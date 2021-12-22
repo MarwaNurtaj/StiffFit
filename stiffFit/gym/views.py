@@ -107,14 +107,24 @@ def error_page(request):
 # Create your views here.
 from .models import*
 @login_required
-def home(request):
-	return render(request,'gym/homepage.html')
+def home(request):    
+    return render(request,'gym/homepage.html')
 
 def trainer(request):
 	return render(request,'gym/trainer.html')
 
 def trainee(request):
-	return render(request,'gym/trainee.html')
+    trainee = Trainee.objects.all()
+    package = Package.objects.all()
+    progress = Progress.objects.all()
+    
+    total_trainee = trainee.count()
+    pending = progress.filter(status='Pending').count()
+    progressing = progress.filter(status='Progressing').count()
+    completed = progress.filter(status='Completed').count()
+    
+    context = {'trainee': trainee, 'package':package, 'progress':progress, 'total_trainee':total_trainee, 'pending':pending, 'progressing':progressing, 'completed':completed}
+    return render(request,'gym/trainee.html', context)
 
 def logoutUser(request):
 	logout(request)
