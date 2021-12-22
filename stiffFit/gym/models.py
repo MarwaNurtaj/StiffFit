@@ -27,17 +27,17 @@ class Trainer(models.Model):
                 ('Gym Master', 'Gym Master'),
                 ('Nutritionist', 'Nutritionist'),
                 )
-    name = models.CharField(max_length=200, null=True)
+    trainer = models.CharField(max_length=200, null=True)
     category = models.CharField(max_length=200, null=True, choices=CATEGORY)
     email = models.CharField(max_length=200, null=True)
     phone = models.CharField(max_length=200, null=True)
     profile_picture = models.ImageField(default="default_profile.jpg",null=True, blank=True)
 	
     def __str__(self):
-        return self.name
+        return self.trainer
     
 class Trainee(models.Model):
-    name = models.CharField(max_length=200, null=True)
+    trainee = models.CharField(max_length=200, null=True)
     age = models.FloatField(null=True)
     height = models.FloatField(null=True)
     weight = models.FloatField(null=True)
@@ -46,7 +46,37 @@ class Trainee(models.Model):
     profile_picture = models.ImageField(default="default_profile.jpg",null=True, blank=True)
 	
     def __str__(self):
-        return self.name
+        return self.trainee
+    
+class Package(models.Model):
+    TYPE = (
+                ('Yoga', 'Yoga'),
+                ('Gym', 'Gym'),
+                ('Balanced Nutrition Diet', 'Balanced Nutrition Diet'),
+                )
+    package = models.CharField(max_length=200, null=True)
+    price = models.FloatField(null=True)
+    category = models.CharField(max_length=200, null=True, choices=TYPE)
+    date_of_enrolment = models.DateTimeField(auto_now_add=True, null = True)
+
+    def __str__(self):
+        return self.package
+
+class Progress(models.Model):
+    STATUS = (
+                ('Not Applicable', 'Not Applicable' ),
+		        ('Pending', 'Pending'),
+                ('Progressing', 'Progressing' ),
+                ('Completed', 'Completed'),
+             )
+    trainee = models.ForeignKey(Trainee, null=True, on_delete=models.SET_NULL)
+    trainer = models.ForeignKey(Trainer, null=True, on_delete=models.SET_NULL)
+    package = models.ForeignKey(Package, null=True, on_delete=models.SET_NULL)
+    date_of_enrolment = models.DateTimeField(auto_now_add=True, null = True)
+    status = models.CharField(max_length=200, null=True, choices=STATUS)
+    
+    
+    
 
  
     
