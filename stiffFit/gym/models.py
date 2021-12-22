@@ -31,6 +31,8 @@ class Banners(models.Model):
 
 
 
+
+
 class Trainer(models.Model):
     CATEGORY = (
                 ('Yoga Trainer', 'Yoga Trainer'),
@@ -90,7 +92,7 @@ class Progress(models.Model):
 
 
     
-    
+
 
 class Page(models.Model):
     title = models.CharField(max_length=150)
@@ -113,3 +115,4 @@ class Enquiry(models.Model):
 
     def __str__(self):
         return self.full_name
+
