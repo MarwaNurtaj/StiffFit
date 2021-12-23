@@ -125,8 +125,12 @@ WSGI_APPLICATION = 'stiffFit.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
+<<<<<<< HEAD
 
     'default': {
+=======
+     'default': {
+>>>>>>> 59d013bc8285893bbe001dd3af0008c4d4ffb639
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'gym',
         'USER': 'postgres',

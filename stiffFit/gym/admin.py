@@ -11,6 +11,10 @@ admin.site.register(models.Trainer)
 admin.site.register(models.Trainee)
 admin.site.register(models.Package) 
 admin.site.register(models.Progress) 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 59d013bc8285893bbe001dd3af0008c4d4ffb639
 
 class NotifyAdmin(admin.ModelAdmin):
     list_display=('notify_detail', 'read_by_user')
