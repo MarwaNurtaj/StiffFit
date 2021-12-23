@@ -127,14 +127,11 @@ def trainee(request):
     
     context = {'trainee': trainee, 'package':package, 'progress':progress, 'total_trainee':total_trainee, 'pending':pending, 'progressing':progressing, 'completed':completed}
     return render(request,'gym/trainee.html', context)
-<<<<<<< HEAD
 
 def page_detail(request,id):
-    page=Page.objects.get(id=id)
+    page= Page.objects.get(id=id)
     return render(request, 'gym/page.html' , {'page':page})
 
-=======
->>>>>>> 59d013bc8285893bbe001dd3af0008c4d4ffb639
 
 def logoutUser(request):
 	logout(request)
