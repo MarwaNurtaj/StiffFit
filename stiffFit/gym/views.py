@@ -9,7 +9,9 @@ from django.core.mail import send_mail
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-
+from . import forms
+from django.core import serializers
+from django.http import JsonResponse
 # Create your views here.
 
 
@@ -107,25 +109,68 @@ def error_page(request):
 # Create your views here.
 from .models import*
 @login_required
-def home(request):
-	return render(request,'gym/homepage.html')
+def home(request):    
+    return render(request,'gym/homepage.html')
 
 def trainer(request):
 	return render(request,'gym/trainer.html')
 
 def trainee(request):
-	return render(request,'gym/trainee.html')
+    trainee = Trainee.objects.all()
+    package = Package.objects.all()
+    progress = Progress.objects.all()
+    
+    total_trainee = trainee.count()
+    pending = progress.filter(status='Pending').count()
+    progressing = progress.filter(status='Progressing').count()
+    completed = progress.filter(status='Completed').count()
+    
+    context = {'trainee': trainee, 'package':package, 'progress':progress, 'total_trainee':total_trainee, 'pending':pending, 'progressing':progressing, 'completed':completed}
+    return render(request,'gym/trainee.html', context)
+
+def page_detail(request,id):
+    page=Page.objects.get(id=id)
+    return render(request, 'gym/page.html' , {'page':page})
+
 
 def logoutUser(request):
 	logout(request)
 	return redirect('login_attempt')
 
+def notifs(request):
+	data=Notify.objects.all().order_by('-id')
+	return render(request, 'gym/notification.html')
 
+# Get All Notifications
+def get_notifs(request):
+	data=models.Notify.objects.all().order_by('-id')
+	notifStatus=False
+	jsonData=[]
+	totalUnread=0
+	for d in data:
+		try:
+			notifStatusData=models.NotifUserStatus.objects.get(user=request.user,notif=d)
+			if notifStatusData:
+				notifStatus=True
+		except models.NotifUserStatus.DoesNotExist:
+			notifStatus=False
+		if not notifStatus:
+			totalUnread=totalUnread+1
+		jsonData.append({
+				'pk':d.id,
+				'notify_detail':d.notify_detail,
+				'notifStatus':notifStatus
+			})
+	# jsonData=serializers.serialize('json', data)
+	return JsonResponse({'data':jsonData,'totalUnread':totalUnread})
 
-
-
-
-
+# Mark Read By user
+def mark_read_notif(request):
+	notif=request.GET['notif']
+	notif=models.Notify.objects.get(pk=notif)
+	user=request.user
+	models.NotifUserStatus.objects.create(notif=notif,user=user,status=True)
+	return JsonResponse({'bool':True})
 
 def send_mail_after_registration( email , token):
     subject = 'Your accounts need to be verified (StiffFit) '
@@ -134,3 +179,22 @@ def send_mail_after_registration( email , token):
     recipient_list = [email]
     send_mail(subject, message , email_from ,recipient_list )
     
+
+
+
+def faq_list(request):
+    faq=Faq.objects.all()
+    return render(request, 'gym/faq.html' ,{'faqs':faq})
+
+def enquiry_list(request):
+	msg=''
+	if request.method=='POST':
+		form=forms.EnquiryForm(request.POST)
+		if form.is_valid():
+			form.save()
+			msg='Data has been saved'
+	form=forms.EnquiryForm
+	return render(request, 'gym/enquiry.html',{'form':form,'msg':msg})
+
+def video(request):
+    return render(request, 'gym/video.html')    
