@@ -1,16 +1,17 @@
-{%  include 'gym/main.html' %}
+{% include 'gym/main.html' %}
 {% load static %}
 <style>
-        .firstsection {
-            background-color: rgb(239, 241, 241);
-            height: 400px;
-        }
-        .firsthalf {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
+	.firstsection {
+		background-color: rgb(239, 241, 241);
+		height: 400px;
+	}
+
+	.firsthalf {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
 </style>
 {% block content %}
 
@@ -19,71 +20,92 @@
 
 
 <section class="firstsection">
-    <div class="box-main">
-        <div class="firstHalf">
-            <h2 class="text-big" id="Gymnasium">
-                Gymnasium
-            </h2>
+	<div class="box-main">
+		<div class="firstHalf">
+			<h2 class="text-big" id="Gymnasium">
+				Gymnasium
+			</h2>
 
-            <p class="text-small">
-                Gymnasium is a large room with equipment for exercising the body and increasing strength or a club where you can go to exercise and keep fit. A gym is a gymnasium, also known as health club and fitness centre. Gymnasiums have moved away just being a location for gymnastics.
-                Gymnasia apparatuses such as barbells, jumping board, running path, tennis-balls, cricket field, and fencing area are used as exercises. In safe weather, outdoor locations are the most conducive to health.[2] Gyms were popular in ancient Greece. Their curricula included self-defense, gymnastica medica, or physical therapy to help the sick and injured, and for physical fitness and sports, from boxing to dancing to skipping rope.[3]
+			<p class="text-small">
+				Gymnasium is a large room with equipment for exercising the body and increasing strength or a club where
+				you can go to exercise and keep fit. A gym is a gymnasium, also known as health club and fitness centre.
+				Gymnasiums have moved away just being a location for gymnastics.
+				Gymnasia apparatuses such as barbells, jumping board, running path, tennis-balls, cricket field, and
+				fencing area are used as exercises. In safe weather, outdoor locations are the most conducive to
+				health.[2] Gyms were popular in ancient Greece. Their curricula included self-defense, gymnastica
+				medica, or physical therapy to help the sick and injured, and for physical fitness and sports, from
+				boxing to dancing to skipping rope.[3]
 
-Gymnasia also had teachers of wisdom and philosophy. Community gymnastic events were done as part of the celebrations during various village festivals. In ancient Greece there was a phrase of contempt, "He can neither swim nor write." After a while, however, Olympic athletes began training in buildings specifically designed for them.[4] Community sports never became as popular among ancient Romans as it had among the ancient Greeks. Gyms were used more as a preparation for military service or spectator sports. During the Roman Empire, the gymnastic art was forgotten. In the Dark Ages there were sword fighting tournaments and of chivalry; and after gunpowder was invented sword fighting began to be replaced by the sport of fencing, as well as schools of dagger fighting and wrestling and boxing.[5]
-In the 18th century, Salzmann, German clergyman, opened a gym in Thuringia teaching bodily exercises, including running and swimming. Clias and Volker established gyms in London, and in 1825, Doctor Charles Beck, a German immigrant, established the first gymnasium in the United States. It was found that gym pupils lose interest in doing the same exercises, partly because of age. Variety in exercises included skating, dancing, and swimming. Some gym activities can be done by 6 to 8-year-olds while age 16 has been considered mature enough for boxing and horseback riding.[6]
+				Gymnasia also had teachers of wisdom and philosophy. Community gymnastic events were done as part of the
+				celebrations during various village festivals. In ancient Greece there was a phrase of contempt, "He can
+				neither swim nor write." After a while, however, Olympic athletes began training in buildings
+				specifically designed for them.[4] Community sports never became as popular among ancient Romans as it
+				had among the ancient Greeks. Gyms were used more as a preparation for military service or spectator
+				sports. During the Roman Empire, the gymnastic art was forgotten. In the Dark Ages there were sword
+				fighting tournaments and of chivalry; and after gunpowder was invented sword fighting began to be
+				replaced by the sport of fencing, as well as schools of dagger fighting and wrestling and boxing.[5]
+				In the 18th century, Salzmann, German clergyman, opened a gym in Thuringia teaching bodily exercises,
+				including running and swimming. Clias and Volker established gyms in London, and in 1825, Doctor Charles
+				Beck, a German immigrant, established the first gymnasium in the United States. It was found that gym
+				pupils lose interest in doing the same exercises, partly because of age. Variety in exercises included
+				skating, dancing, and swimming. Some gym activities can be done by 6 to 8-year-olds while age 16 has
+				been considered mature enough for boxing and horseback riding.[6]
 
-Nowadays, it represents a common area where people, from all ranges of experience, exercise and work out their muscles. You can also usually find people doing cardio exercises or pilates.
-            </p>
+				Nowadays, it represents a common area where people, from all ranges of experience, exercise and work out
+				their muscles. You can also usually find people doing cardio exercises or pilates.
+			</p>
 
 
-        </div>
-    </div>
+		</div>
+	</div>
 </section>
-		<!-- Services -->
-		<section class="container 4">
-			<h1 class="text-center mb-4 section-heading">Services</h1>
-			<div class="row">
-				<div class="col-md-4">
-					<div class="card">
-						<img src="{% static '/images/yoga.jpg' %}" style="width: 100%;height:168;" class="card-img-top" alt="...">
-					<div class="card-body">
+<!-- Services -->
+<section class="container 4">
+	<h1 class="text-center mb-4 section-heading">Services</h1>
+	<div class="row">
+		<div class="col-md-4">
+			<div class="card">
+				<img src="{% static '/images/yoga.jpg' %}" style="width: 100%;height:168;" class="card-img-top"
+					alt="...">
+				<div class="card-body">
 					<h3 class="card-title">Yoga</h3>
-					<p class="card-text">There are broadly two kinds of theories on the 
-							origins of yoga. The linear model argues that yoga has Aryan origins,as reflected in the Vedic textual corpus, and influenced Buddhism; </p>
-				   <a href="{% url 'pagedetail' 4 %}" class="btn btn-primary">Read More</a>
-					</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="card">
-					  <img src="{% static '/images/gym4.jpg' %}" style="width: 100%;height:168;" class="card-img-top" alt="...">
-					  <div class="card-body">
-					    <h3 class="card-title">Gym equipment</h3>
-					    <p class="card-text"> Find Quality Products & Contact Verified Suppliers!
-							 Reduce Costs With Factory Direct Sourcing. Low MOQ, OEM/ODM Available. 
-							 Source Now! Trade Assurance. Production Monitoring. Logistics Service. </p>
-					    <a href="{% url 'pagedetail' 3 %}" class="btn btn-primary">Read More</a>
-					  </div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="card">
-					  <img src="{% static '/images/nu2.jpg' %}" style="width: 300px;height:168;" class="card-img-top" alt="...">
-					  <div class="card-body">
-					    <h3 class="card-title">Nutrition advice</h3>
-					    <p class="card-text">Our Diet & Nutrition Courses Include Veganism,
-							 Nutrition Advisor Subjects & More. All Our Courses Are Certified/Accredited
-							  With A Large Learning Community Too - Enrol Today. 
-							  ..</p>
-					    <a href="{% url 'pagedetail' 1 %}" class="btn btn-primary">Read More</a>
-					  </div>
-					</div>
+					<p class="card-text">There are broadly two kinds of theories on the
+						origins of yoga. The linear model argues that yoga has Aryan origins,as reflected in the Vedic
+						textual corpus, and influenced Buddhism; </p>
+					<a href="{% url 'pagedetail' 4 %}" class="btn btn-primary">Read More</a>
 				</div>
 			</div>
-		</section>
-		<!-- End -->
+		</div>
+		<div class="col-md-4">
+			<div class="card">
+				<img src="{% static '/images/gym4.jpg' %}" style="width: 100%;height:168;" class="card-img-top"
+					alt="...">
+				<div class="card-body">
+					<h3 class="card-title">Gym equipment</h3>
+					<p class="card-text"> Find Quality Products & Contact Verified Suppliers!
+						Reduce Costs With Factory Direct Sourcing. Low MOQ, OEM/ODM Available.
+						Source Now! Trade Assurance. Production Monitoring. Logistics Service. </p>
+					<a href="{% url 'pagedetail' 3 %}" class="btn btn-primary">Read More</a>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="card">
+				<img src="{% static '/images/nu2.jpg' %}" style="width: 300px;height:168;" class="card-img-top"
+					alt="...">
+				<div class="card-body">
+					<h3 class="card-title">Nutrition advice</h3>
+					<p class="card-text">Our Diet & Nutrition Courses Include Veganism,
+						Nutrition Advisor Subjects & More. All Our Courses Are Certified/Accredited
+						With A Large Learning Community Too - Enrol Today.
+						..</p>
+					<a href="{% url 'pagedetail' 1 %}" class="btn btn-primary">Read More</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- End -->
 
-{%  include 'gym/footer.html' %}
+{% include 'gym/footer.html' %}
 {% endblock %}
-
-
