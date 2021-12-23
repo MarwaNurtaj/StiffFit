@@ -195,3 +195,6 @@ def enquiry_list(request):
 			msg='Data has been saved'
 	form=forms.EnquiryForm
 	return render(request, 'gym/enquiry.html',{'form':form,'msg':msg})
+
+def video(request):
+    return render(request, 'gym/video.html')    
