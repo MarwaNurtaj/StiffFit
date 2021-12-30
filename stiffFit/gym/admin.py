@@ -29,3 +29,12 @@ admin.site.register(models.Faq,FaqAdmin)
 class EnquiryAdmin(admin.ModelAdmin):
     list_display=('full_name','email','detail',)
 admin.site.register(models.Enquiry,EnquiryAdmin)
+
+
+class GalleryAdmin(admin.ModelAdmin):
+    list_display=('title','image_tag',)
+admin.site.register(models.Gallery,GalleryAdmin)
+
+class GalleryImageAdmin(admin.ModelAdmin):
+    list_display=('alt_text','image_tag',)
+admin.site.register(models.GalleryImage,GalleryImageAdmin)

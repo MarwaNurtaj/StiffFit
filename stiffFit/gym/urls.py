@@ -24,11 +24,12 @@ urlpatterns = [
     
     path('verify/<auth_token>' , views.verify , name="verify"),
     path('error/' , views.error_page , name="error"),
-path('notifs',views.notifs,name='notifs'),
+    path('notifs',views.notifs,name='notifs'),
 	path('get_notifs',views.get_notifs,name='get_notifs'),
 	path('mark_read_notif',views.mark_read_notif,name='mark_read_notif'),
     path('video',views.video,name='video'),
-
+    path('gallery',views.gallery,name='gallery'),
+    path('gallerydetail/<int:id>',views.gallery_detail,name='gallery_detail'),
 
 
 ]
