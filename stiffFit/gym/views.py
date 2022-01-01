@@ -83,13 +83,8 @@ def success(request):
 
 def token_send(request):
     return render(request, 'gym/token_send.html')
-<<<<<<< HEAD
 
 
-=======
-
-
->>>>>>> origin/rafsan
 def verify(request, auth_token):
     try:
         profile_obj = Profile.objects.filter(auth_token=auth_token).first()
@@ -118,21 +113,11 @@ def error_page(request):
 
 @login_required
 def home(request):
-<<<<<<< HEAD
-    banners = Banners.objects.all()
-    gimgs = GalleryImage.objects.all().order_by('-id')[:9]
-    return render(request, 'gym/homepage.html', {'gimgs': gimgs})
-
-
-def trainer(request):
-    return render(request, 'gym/trainer.html')
-=======
     return render(request, 'gym/homepage.html')
 
 
 def trainer(request):
 	return render(request, 'gym/trainer.html')
->>>>>>> origin/rafsan
 
 
 def trainee(request):
@@ -146,11 +131,7 @@ def trainee(request):
     completed = progress.filter(status='Completed').count()
 
     context = {'trainee': trainee, 'package': package, 'progress': progress, 'total_trainee': total_trainee,
-<<<<<<< HEAD
                 'pending': pending, 'progressing': progressing, 'completed': completed}
-=======
-        'pending': pending, 'progressing': progressing, 'completed': completed}
->>>>>>> origin/rafsan
     return render(request, 'gym/trainee.html', context)
 
 
@@ -166,41 +147,13 @@ def logoutUser(request):
 
 
 def notifs(request):
-<<<<<<< HEAD
-    data = Notify.objects.all().order_by('-id')
-    return render(request, 'gym/notification.html')
-=======
 	data = Notify.objects.all().order_by('-id')
 	return render(request, 'gym/notification.html')
->>>>>>> origin/rafsan
 
 # Get All Notifications
 
 
 def get_notifs(request):
-<<<<<<< HEAD
-    data = models.Notify.objects.all().order_by('-id')
-    notifStatus = False
-    jsonData = []
-    totalUnread = 0
-    for d in data:
-        try:
-            notifStatusData = models.NotifUserStatus.objects.get(
-                user=request.user, notif=d)
-            if notifStatusData:
-                notifStatus = True
-        except models.NotifUserStatus.DoesNotExist:
-            notifStatus = False
-        if not notifStatus:
-            totalUnread = totalUnread+1
-        jsonData.append({
-                        'pk': d.id,
-                        'notify_detail': d.notify_detail,
-                        'notifStatus': notifStatus
-                        })
-    # jsonData=serializers.serialize('json', data)
-    return JsonResponse({'data': jsonData, 'totalUnread': totalUnread})
-=======
 	data = models.Notify.objects.all().order_by('-id')
 	notifStatus = False
 	jsonData = []
@@ -222,25 +175,16 @@ def get_notifs(request):
 			})
 	# jsonData=serializers.serialize('json', data)
 	return JsonResponse({'data': jsonData, 'totalUnread': totalUnread})
->>>>>>> origin/rafsan
 
 # Mark Read By user
 
 
 def mark_read_notif(request):
-<<<<<<< HEAD
-    notif = request.GET['notif']
-    notif = models.Notify.objects.get(pk=notif)
-    user = request.user
-    models.NotifUserStatus.objects.create(notif=notif, user=user, status=True)
-    return JsonResponse({'bool': True})
-=======
 	notif = request.GET['notif']
 	notif = models.Notify.objects.get(pk=notif)
 	user = request.user
 	models.NotifUserStatus.objects.create(notif=notif, user=user, status=True)
 	return JsonResponse({'bool': True})
->>>>>>> origin/rafsan
 
 
 def send_mail_after_registration(email, token):
@@ -257,16 +201,6 @@ def faq_list(request):
 
 
 def enquiry_list(request):
-<<<<<<< HEAD
-    msg = ''
-    if request.method == 'POST':
-        form = forms.EnquiryForm(request.POST)
-        if form.is_valid():
-            form.save()
-            msg = 'Data has been saved'
-    form = forms.EnquiryForm
-    return render(request, 'gym/enquiry.html', {'form': form, 'msg': msg})
-=======
 	msg = ''
 	if request.method == 'POST':
 		form = forms.EnquiryForm(request.POST)
@@ -275,7 +209,6 @@ def enquiry_list(request):
 			msg = 'Data has been saved'
 	form = forms.EnquiryForm
 	return render(request, 'gym/enquiry.html', {'form': form, 'msg': msg})
->>>>>>> origin/rafsan
 
 
 def video(request):
@@ -285,13 +218,8 @@ def video(request):
 def gallery(request):
     gallery = Gallery.objects.all().order_by('-id')
     return render(request, 'gym/gallery.html', {'galleries': gallery})
-<<<<<<< HEAD
 
 
-=======
-
-
->>>>>>> origin/rafsan
 def gallery_detail(request, id):
     gallery = Gallery.objects.get(id=id)
     gallery_imgs = GalleryImage.objects.all().filter(gallery=gallery).order_by('-id')
@@ -301,12 +229,6 @@ def gallery_detail(request, id):
 
 
 def pricing(request):
-<<<<<<< HEAD
-    pricing = SubPlan.objects.all()
-    # annotate(total_members=Count('subscription__id')).all().order_by('price')
-    dfeatures = SubPlanFeature.objects.all()
-    return render(request, 'gym/pricing.html', {'plans': pricing, 'dfeatures': dfeatures})
-=======
 	pricing = SubPlan.objects.all()
     # annotate(total_members=Count('subscription__id')).all().order_by('price')
 	dfeatures = SubPlanFeature.objects.all();
@@ -329,5 +251,4 @@ def update_profile(request):
 	return render(request, 'gym/update_profile.html',{'form':form,'msg':msg})
 
 
-      
->>>>>>> origin/rafsan
+
