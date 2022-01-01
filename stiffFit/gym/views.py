@@ -207,3 +207,10 @@ def gallery_detail(request,id):
     gallery=Gallery.objects.get(id=id)
     gallery_imgs=GalleryImage.objects.all().filter(gallery=gallery).order_by('-id')
     return render(request, 'gym/gallery_imgs.html',{'gallery_imgs':gallery_imgs,'gallery':gallery})
+
+# Subscription Plans
+def pricing(request):
+	pricing=SubPlan.objects.all()
+    #annotate(total_members=Count('subscription__id')).all().order_by('price')
+	dfeatures=SubPlanFeature.objects.all();
+	return render(request, 'gym/pricing.html',{'plans':pricing,'dfeatures':dfeatures})

@@ -30,6 +30,7 @@ urlpatterns = [
     path('video',views.video,name='video'),
     path('gallery',views.gallery,name='gallery'),
     path('gallerydetail/<int:id>',views.gallery_detail,name='gallery_detail'),
+	path('pricing',views.pricing,name='pricing'),
 
 
 ]
