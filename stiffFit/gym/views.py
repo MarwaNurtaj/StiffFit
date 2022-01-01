@@ -1,3 +1,4 @@
+from .models import*
 from gym.models import Profile
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
@@ -6,7 +7,7 @@ from .models import *
 import uuid
 from django.conf import settings
 from django.core.mail import send_mail
-from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from . import forms
@@ -20,27 +21,28 @@ def login_attempt(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
 
-        user_obj = User.objects.filter(username = username).first()
+        user_obj = User.objects.filter(username=username).first()
         if user_obj is None:
             messages.success(request, 'User not found.')
             return redirect('login_attempt')
-        
-        
-        profile_obj = Profile.objects.filter(user = user_obj ).first()
+
+        profile_obj = Profile.objects.filter(user=user_obj).first()
 
         if not profile_obj.is_verified:
-            messages.success(request, 'Profile is not verified check your mail.')
+            messages.success(
+                request, 'Profile is not verified check your mail.')
             return redirect('login_attempt')
 
-        user = authenticate(username = username , password = password)
+        user = authenticate(username=username, password=password)
         if user is None:
             messages.success(request, 'Wrong password.')
             return redirect('login_attempt')
-        
-        login(request , user)
+
+        login(request, user)
         return redirect('home')
 
-    return render(request , 'gym/login.html')
+    return render(request, 'gym/login.html')
+
 
 def register_attempt(request):
 
@@ -51,42 +53,41 @@ def register_attempt(request):
         print(password)
 
         try:
-            if User.objects.filter(username = username).first():
+            if User.objects.filter(username=username).first():
                 messages.success(request, 'Username is taken.')
                 return redirect('register_attempt')
 
-            if User.objects.filter(email = email).first():
+            if User.objects.filter(email=email).first():
                 messages.success(request, 'Email is taken.')
                 return redirect('register_attempt')
-            
-            user_obj = User(username = username , email = email)
+
+            user_obj = User(username=username, email=email)
             user_obj.set_password(password)
             user_obj.save()
             auth_token = str(uuid.uuid4())
-            profile_obj = Profile.objects.create(user = user_obj , auth_token = auth_token)
+            profile_obj = Profile.objects.create(
+                user=user_obj, auth_token=auth_token)
             profile_obj.save()
-            send_mail_after_registration(email , auth_token)
+            send_mail_after_registration(email, auth_token)
             return redirect('token_send')
 
         except Exception as e:
             print(e)
 
+    return render(request, 'gym/register.html')
 
-    return render(request , 'gym/register.html')
 
 def success(request):
-    return render(request , 'gym/success.html')
+    return render(request, 'gym/success.html')
 
 
 def token_send(request):
-    return render(request , 'gym/token_send.html')
+    return render(request, 'gym/token_send.html')
 
 
-
-def verify(request , auth_token):
+def verify(request, auth_token):
     try:
-        profile_obj = Profile.objects.filter(auth_token = auth_token).first()
-    
+        profile_obj = Profile.objects.filter(auth_token=auth_token).first()
 
         if profile_obj:
             if profile_obj.is_verified:
@@ -102,115 +103,134 @@ def verify(request , auth_token):
         print(e)
         return redirect('/')
 
+
 def error_page(request):
-    return  render(request , 'gym/error.html')
+    return render(request, 'gym/error.html')
 
 
 # Create your views here.
-from .models import*
+
+
 @login_required
-def home(request):    
-    return render(request,'gym/homepage.html')
+def home(request):
+    banners = Banners.objects.all()
+    gimgs = GalleryImage.objects.all().order_by('-id')[:9]
+    return render(request, 'gym/homepage.html', {'gimgs': gimgs})
+
 
 def trainer(request):
-	return render(request,'gym/trainer.html')
+    return render(request, 'gym/trainer.html')
+
 
 def trainee(request):
     trainee = Trainee.objects.all()
     package = Package.objects.all()
     progress = Progress.objects.all()
-    
+
     total_trainee = trainee.count()
     pending = progress.filter(status='Pending').count()
     progressing = progress.filter(status='Progressing').count()
     completed = progress.filter(status='Completed').count()
-    
-    context = {'trainee': trainee, 'package':package, 'progress':progress, 'total_trainee':total_trainee, 'pending':pending, 'progressing':progressing, 'completed':completed}
-    return render(request,'gym/trainee.html', context)
 
-def page_detail(request,id):
-    page=Page.objects.get(id=id)
-    return render(request, 'gym/page.html' , {'page':page})
+    context = {'trainee': trainee, 'package': package, 'progress': progress, 'total_trainee': total_trainee,
+                'pending': pending, 'progressing': progressing, 'completed': completed}
+    return render(request, 'gym/trainee.html', context)
+
+
+def page_detail(request, id):
+    page = Page.objects.get(id=id)
+    return render(request, 'gym/page.html', {'page': page})
 
 
 def logoutUser(request):
-	logout(request)
-	return redirect('login_attempt')
+    logout(request)
+    return redirect('login_attempt')
+
 
 def notifs(request):
-	data=Notify.objects.all().order_by('-id')
-	return render(request, 'gym/notification.html')
+    data = Notify.objects.all().order_by('-id')
+    return render(request, 'gym/notification.html')
 
 # Get All Notifications
+
+
 def get_notifs(request):
-	data=models.Notify.objects.all().order_by('-id')
-	notifStatus=False
-	jsonData=[]
-	totalUnread=0
-	for d in data:
-		try:
-			notifStatusData=models.NotifUserStatus.objects.get(user=request.user,notif=d)
-			if notifStatusData:
-				notifStatus=True
-		except models.NotifUserStatus.DoesNotExist:
-			notifStatus=False
-		if not notifStatus:
-			totalUnread=totalUnread+1
-		jsonData.append({
-				'pk':d.id,
-				'notify_detail':d.notify_detail,
-				'notifStatus':notifStatus
-			})
-	# jsonData=serializers.serialize('json', data)
-	return JsonResponse({'data':jsonData,'totalUnread':totalUnread})
+    data = models.Notify.objects.all().order_by('-id')
+    notifStatus = False
+    jsonData = []
+    totalUnread = 0
+    for d in data:
+        try:
+            notifStatusData = models.NotifUserStatus.objects.get(
+                user=request.user, notif=d)
+            if notifStatusData:
+                notifStatus = True
+        except models.NotifUserStatus.DoesNotExist:
+            notifStatus = False
+        if not notifStatus:
+            totalUnread = totalUnread+1
+        jsonData.append({
+                        'pk': d.id,
+                        'notify_detail': d.notify_detail,
+                        'notifStatus': notifStatus
+                        })
+    # jsonData=serializers.serialize('json', data)
+    return JsonResponse({'data': jsonData, 'totalUnread': totalUnread})
 
 # Mark Read By user
-def mark_read_notif(request):
-	notif=request.GET['notif']
-	notif=models.Notify.objects.get(pk=notif)
-	user=request.user
-	models.NotifUserStatus.objects.create(notif=notif,user=user,status=True)
-	return JsonResponse({'bool':True})
 
-def send_mail_after_registration( email , token):
+
+def mark_read_notif(request):
+    notif = request.GET['notif']
+    notif = models.Notify.objects.get(pk=notif)
+    user = request.user
+    models.NotifUserStatus.objects.create(notif=notif, user=user, status=True)
+    return JsonResponse({'bool': True})
+
+
+def send_mail_after_registration(email, token):
     subject = 'Your accounts need to be verified (StiffFit) '
     message = f'Welcome to StiffFit.Just copy and paste the link to verify your account http://127.0.0.1:8000/verify/{token}'
     email_from = settings.EMAIL_HOST_USER
     recipient_list = [email]
-    send_mail(subject, message , email_from ,recipient_list )
-    
-
+    send_mail(subject, message, email_from, recipient_list)
 
 
 def faq_list(request):
-    faq=Faq.objects.all()
-    return render(request, 'gym/faq.html' ,{'faqs':faq})
+    faq = Faq.objects.all()
+    return render(request, 'gym/faq.html', {'faqs': faq})
+
 
 def enquiry_list(request):
-	msg=''
-	if request.method=='POST':
-		form=forms.EnquiryForm(request.POST)
-		if form.is_valid():
-			form.save()
-			msg='Data has been saved'
-	form=forms.EnquiryForm
-	return render(request, 'gym/enquiry.html',{'form':form,'msg':msg})
+    msg = ''
+    if request.method == 'POST':
+        form = forms.EnquiryForm(request.POST)
+        if form.is_valid():
+            form.save()
+            msg = 'Data has been saved'
+    form = forms.EnquiryForm
+    return render(request, 'gym/enquiry.html', {'form': form, 'msg': msg})
+
 
 def video(request):
-    return render(request, 'gym/video.html')    
+    return render(request, 'gym/video.html')
+
 
 def gallery(request):
-    gallery=Gallery.objects.all().order_by('-id')
-    return render(request, 'gym/gallery.html',{'galleries':gallery})
+    gallery = Gallery.objects.all().order_by('-id')
+    return render(request, 'gym/gallery.html', {'galleries': gallery})
 
-def gallery_detail(request,id):
-    gallery=Gallery.objects.get(id=id)
-    gallery_imgs=GalleryImage.objects.all().filter(gallery=gallery).order_by('-id')
-    return render(request, 'gym/gallery_imgs.html',{'gallery_imgs':gallery_imgs,'gallery':gallery})
+
+def gallery_detail(request, id):
+    gallery = Gallery.objects.get(id=id)
+    gallery_imgs = GalleryImage.objects.all().filter(gallery=gallery).order_by('-id')
+    return render(request, 'gym/gallery_imgs.html', {'gallery_imgs': gallery_imgs, 'gallery': gallery})
 
 # Subscription Plans
+
+
 def pricing(request):
-	pricing=SubPlan.objects.all()
-    #annotate(total_members=Count('subscription__id')).all().order_by('price')
-	dfeatures=SubPlanFeature.objects.all();
-	return render(request, 'gym/pricing.html',{'plans':pricing,'dfeatures':dfeatures})
+    pricing = SubPlan.objects.all()
+    # annotate(total_members=Count('subscription__id')).all().order_by('price')
+    dfeatures = SubPlanFeature.objects.all()
+    return render(request, 'gym/pricing.html', {'plans': pricing, 'dfeatures': dfeatures})
