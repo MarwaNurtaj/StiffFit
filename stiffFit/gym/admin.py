@@ -29,8 +29,6 @@ admin.site.register(models.Faq,FaqAdmin)
 class EnquiryAdmin(admin.ModelAdmin):
     list_display=('full_name','email','detail',)
 admin.site.register(models.Enquiry,EnquiryAdmin)
-<<<<<<< HEAD
-=======
 
 
 class GalleryAdmin(admin.ModelAdmin):
@@ -53,4 +51,3 @@ class SubPlanFeatureAdmin(admin.ModelAdmin):
 	#def subplans(self,obj):
 	#	return " | ".join([sub.title for sub in obj.subplan.all()])
 admin.site.register(models.SubPlanFeature,SubPlanFeatureAdmin)
->>>>>>> db034f03eac1a29a19ad41906e09cf0e3bc0240e

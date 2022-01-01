@@ -130,11 +130,6 @@ def trainee(request):
     progressing = progress.filter(status='Progressing').count()
     completed = progress.filter(status='Completed').count()
 
-<<<<<<< HEAD
-def page_detail(request,id):
-    page= Page.objects.get(id=id)
-    return render(request, 'gym/page.html' , {'page':page})
-=======
     context = {'trainee': trainee, 'package': package, 'progress': progress, 'total_trainee': total_trainee,
                 'pending': pending, 'progressing': progressing, 'completed': completed}
     return render(request, 'gym/trainee.html', context)
@@ -143,7 +138,6 @@ def page_detail(request,id):
 def page_detail(request, id):
     page = Page.objects.get(id=id)
     return render(request, 'gym/page.html', {'page': page})
->>>>>>> db034f03eac1a29a19ad41906e09cf0e3bc0240e
 
 
 def logoutUser(request):
