@@ -29,13 +29,26 @@ class Trainer(models.Model):
                 ('Nutritionist', 'Nutritionist'),
                 )
     trainer = models.CharField(max_length=200, null=True)
+    username=models.CharField(max_length=100,null=True)
+    pwd=models.CharField(max_length=50,null=True)
     category = models.CharField(max_length=200, null=True, choices=CATEGORY)
     email = models.CharField(max_length=200, null=True)
     phone = models.CharField(max_length=200, null=True)
-    profile_picture = models.ImageField(default="default_profile.jpg",null=True, blank=True)
+    is_active=models.BooleanField(default=False)
+    img=models.ImageField(upload_to="trainers/", null=True)
+
+    facebook=models.CharField(max_length=200,null=True)
+    twitter=models.CharField(max_length=200,null=True)
+    pinterest=models.CharField(max_length=200,null=True)
+    youtube=models.CharField(max_length=200,null=True)
 	
     def __str__(self):
         return self.trainer
+    def Image_tag(self):
+        if self.img:
+            return mark_safe('<img src="%s" width="80" />' % (self.img.url))
+        else:
+            return 'no-image'        
     
 class Trainee(models.Model):
     trainee = models.CharField(max_length=200, null=True)

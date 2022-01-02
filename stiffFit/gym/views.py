@@ -251,4 +251,25 @@ def update_profile(request):
 	return render(request, 'gym/update_profile.html',{'form':form,'msg':msg})
 
 
+# trainer login
+def trainerlogin(request):
+	msg=''
+	if request.method=='POST':
+		username=request.POST['username']
+		password=request.POST['pwd']
+		trainer=Trainer.objects.filter(username=username,pwd=password).count()
+		if trainer > 0:
+			trainer=Trainer.objects.filter(username=username,pwd=password).first()
+			request.session['trainerLogin']=True
+			request.session['trainerid']=trainer.id
+			return redirect('/trainer_dashboard')
+		else:
+			msg='Invalid!!'
+	form=forms.TrainerLoginForm
+    
+	return render(request, 'gym/Trainer/Trainerlogin.html',{'form':form,'msg':msg})
 
+# Trainer Logout
+def trainerlogout(request):
+	del request.session['trainerLogin']
+	return redirect('/trainerlogin')      
