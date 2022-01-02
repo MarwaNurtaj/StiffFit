@@ -17,9 +17,9 @@ urlpatterns = [
     path('faq/',views.faq_list, name='faq'),
     path('enquiry/',views.enquiry_list, name='enquiry'),
 
-	path('home/' ,views.home  , name="home"),
+	path('' ,views.home  , name="home"),
     path('register/' , views.register_attempt , name="register_attempt"),
-    path('' , views.login_attempt , name="login_attempt"),
+    path('login_attempt/' , views.login_attempt , name="login_attempt"),
     path('token/' , views.token_send , name="token_send"),
     
     path('verify/<auth_token>' , views.verify , name="verify"),
@@ -31,7 +31,7 @@ urlpatterns = [
     path('gallery',views.gallery,name='gallery'),
     path('gallerydetail/<int:id>',views.gallery_detail,name='gallery_detail'),
 	path('pricing',views.pricing,name='pricing'),
-    
+    path('checkout/<int:plan_id>',views.checkout,name='checkout'),
     path('udashboard',views.udashboard,name='udashboard'),
     path('update_profile',views.update_profile,name='update_profile'),
 

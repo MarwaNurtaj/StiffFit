@@ -164,9 +164,9 @@ class GalleryImage(models.Model):
 class SubPlan(models.Model):
 	title=models.CharField(max_length=150)
 	price=models.IntegerField()
-	#max_member=models.IntegerField(null=True)
+	max_member=models.IntegerField(null=True)
 	highlight_status=models.BooleanField(default=False,null=True)
-	#validity_days=models.IntegerField(null=True)
+	validity_days=models.IntegerField(null=True)
 
 	def __str__(self):
 		return self.title
@@ -178,3 +178,12 @@ class SubPlanFeature(models.Model):
 
 	def __str__(self):
 		return self.title
+
+# Package Discounts
+class PlanDiscount(models.Model):
+	subplan=models.ForeignKey(SubPlan, on_delete=models.CASCADE,null=True)
+	total_months=models.IntegerField()
+	total_discount=models.IntegerField()
+
+	def __str__(self):
+		return str(self.total_months)

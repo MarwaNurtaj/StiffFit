@@ -40,14 +40,18 @@ class GalleryImageAdmin(admin.ModelAdmin):
 admin.site.register(models.GalleryImage,GalleryImageAdmin)
 
 class SubPlanAdmin(admin.ModelAdmin):
-	list_editable=('highlight_status',)
-    #'max_member')
-	list_display=('title','price','highlight_status')
+	list_editable=('highlight_status','max_member')
+    #)
+	list_display=('title','price','max_member','highlight_status')
     #,'max_member','validity_days','highlight_status')
 admin.site.register(models.SubPlan,SubPlanAdmin)
 
 class SubPlanFeatureAdmin(admin.ModelAdmin):
 	list_display=('title',)#'subplan',)
-	#def subplans(self,obj):
-	#	return " | ".join([sub.title for sub in obj.subplan.all()])
+	def subplans(self,obj):
+		return " | ".join([sub.title for sub in obj.subplan.all()])
 admin.site.register(models.SubPlanFeature,SubPlanFeatureAdmin)
+
+class PlanDiscountAdmin(admin.ModelAdmin):
+	list_display=('subplan','total_months','total_discount')
+admin.site.register(models.PlanDiscount,PlanDiscountAdmin)

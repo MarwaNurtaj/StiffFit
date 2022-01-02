@@ -111,13 +111,13 @@ def error_page(request):
 # Create your views here.
 
 
-@login_required
+
 def home(request):
     return render(request, 'gym/homepage.html')
 
 
 def trainer(request):
-	return render(request, 'gym/trainer.html')
+    return render(request, 'gym/trainer.html')
 
 
 def trainee(request):
@@ -131,7 +131,7 @@ def trainee(request):
     completed = progress.filter(status='Completed').count()
 
     context = {'trainee': trainee, 'package': package, 'progress': progress, 'total_trainee': total_trainee,
-                'pending': pending, 'progressing': progressing, 'completed': completed}
+               'pending': pending, 'progressing': progressing, 'completed': completed}
     return render(request, 'gym/trainee.html', context)
 
 
@@ -145,46 +145,45 @@ def logoutUser(request):
     return redirect('login_attempt')
 
 
-
 def notifs(request):
-	data = Notify.objects.all().order_by('-id')
-	return render(request, 'gym/notification.html')
+    data = Notify.objects.all().order_by('-id')
+    return render(request, 'gym/notification.html')
 
 # Get All Notifications
 
 
 def get_notifs(request):
-	data = models.Notify.objects.all().order_by('-id')
-	notifStatus = False
-	jsonData = []
-	totalUnread = 0
-	for d in data:
-		try:
-			notifStatusData = models.NotifUserStatus.objects.get(
-			    user=request.user, notif=d)
-			if notifStatusData:
-				notifStatus = True
-		except models.NotifUserStatus.DoesNotExist:
-			notifStatus = False
-		if not notifStatus:
-			totalUnread = totalUnread+1
-		jsonData.append({
-				'pk': d.id,
-				'notify_detail': d.notify_detail,
-				'notifStatus': notifStatus
-			})
-	# jsonData=serializers.serialize('json', data)
-	return JsonResponse({'data': jsonData, 'totalUnread': totalUnread})
+    data = models.Notify.objects.all().order_by('-id')
+    notifStatus = False
+    jsonData = []
+    totalUnread = 0
+    for d in data:
+        try:
+            notifStatusData = models.NotifUserStatus.objects.get(
+                user=request.user, notif=d)
+            if notifStatusData:
+                notifStatus = True
+        except models.NotifUserStatus.DoesNotExist:
+            notifStatus = False
+        if not notifStatus:
+            totalUnread = totalUnread+1
+        jsonData.append({
+                        'pk': d.id,
+                        'notify_detail': d.notify_detail,
+                        'notifStatus': notifStatus
+                        })
+    # jsonData=serializers.serialize('json', data)
+    return JsonResponse({'data': jsonData, 'totalUnread': totalUnread})
 
 # Mark Read By user
 
 
 def mark_read_notif(request):
-	notif = request.GET['notif']
-	notif = models.Notify.objects.get(pk=notif)
-	user = request.user
-	models.NotifUserStatus.objects.create(notif=notif, user=user, status=True)
-	return JsonResponse({'bool': True})
+    notif = request.GET['notif']
+    notif = models.Notify.objects.get(pk=notif)
+    user = request.user
+    models.NotifUserStatus.objects.create(notif=notif, user=user, status=True)
+    return JsonResponse({'bool': True})
 
 
 def send_mail_after_registration(email, token):
@@ -201,14 +200,14 @@ def faq_list(request):
 
 
 def enquiry_list(request):
-	msg = ''
-	if request.method == 'POST':
-		form = forms.EnquiryForm(request.POST)
-		if form.is_valid():
-			form.save()
-			msg = 'Data has been saved'
-	form = forms.EnquiryForm
-	return render(request, 'gym/enquiry.html', {'form': form, 'msg': msg})
+    msg = ''
+    if request.method == 'POST':
+        form = forms.EnquiryForm(request.POST)
+        if form.is_valid():
+            form.save()
+            msg = 'Data has been saved'
+    form = forms.EnquiryForm
+    return render(request, 'gym/enquiry.html', {'form': form, 'msg': msg})
 
 
 def video(request):
@@ -229,26 +228,30 @@ def gallery_detail(request, id):
 
 
 def pricing(request):
-	pricing = SubPlan.objects.all()
-    # annotate(total_members=Count('subscription__id')).all().order_by('price')
-	dfeatures = SubPlanFeature.objects.all();
-	return render(request, 'gym/pricing.html', {'plans': pricing, 'dfeatures': dfeatures})
+    pricing = SubPlan.objects.all()
+    #annotate(total_members=Count('subscription__id')).all().order_by('price')
+    dfeatures = SubPlanFeature.objects.all()
+    return render(request, 'gym/pricing.html', {'plans': pricing, 'dfeatures': dfeatures})
 
 
 def udashboard(request):
 
-	return render(request, 'gym/dashboard.html')
+    return render(request, 'gym/dashboard.html')
 
 
 def update_profile(request):
-	msg=None
-	if request.method=='POST':
-		form=forms.ProfileForm(request.POST,instance=request.user)
-		if form.is_valid():
-			form.save()
-			msg='Data has been Updated'
-	form=forms.ProfileForm(instance=request.user)
-	return render(request, 'gym/update_profile.html',{'form':form,'msg':msg})
+    msg = None
+    if request.method == 'POST':
+        form = forms.ProfileForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            msg = 'Data has been Updated'
+    form = forms.ProfileForm(instance=request.user)
+    return render(request, 'gym/update_profile.html', {'form': form, 'msg': msg})
 
 
 
+# Checkout
+def checkout(request, plan_id):
+    planDetail = SubPlan.objects.get(pk=plan_id)
+    return render(request, 'gym/checkout.html', {'plan': planDetail})
