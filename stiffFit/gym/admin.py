@@ -7,7 +7,6 @@ class BannerAdmin(admin.ModelAdmin):
 admin.site.register(models.Banners)
 
 admin.site.register(models.Profile) 
-admin.site.register(models.Trainer) 
 admin.site.register(models.Trainee)
 admin.site.register(models.Package) 
 admin.site.register(models.Progress) 
@@ -51,3 +50,9 @@ class SubPlanFeatureAdmin(admin.ModelAdmin):
 	#def subplans(self,obj):
 	#	return " | ".join([sub.title for sub in obj.subplan.all()])
 admin.site.register(models.SubPlanFeature,SubPlanFeatureAdmin)
+
+
+class TrainerAdmin(admin.ModelAdmin):
+	list_editable=('is_active',)
+	list_display=('trainer','phone','is_active','Image_tag',)
+admin.site.register(models.Trainer,TrainerAdmin)

@@ -12,7 +12,7 @@ urlpatterns = [
     path('trainer/', views.trainer, name="trainer"),
     path('trainee/', views.trainee, name="trainee"),
 	path('logout/', views.logoutUser, name="logout"),
-	path('logout/', views.logoutUser, name="logout"),
+	
     path('pagedetail/<int:id>/',views.page_detail, name='pagedetail'),
     path('faq/',views.faq_list, name='faq'),
     path('enquiry/',views.enquiry_list, name='enquiry'),
@@ -34,6 +34,9 @@ urlpatterns = [
     
     path('udashboard',views.udashboard,name='udashboard'),
     path('update_profile',views.update_profile,name='update_profile'),
+    #TrainerLogin
+    path('trainerlogin',views.trainerlogin,name='trainerlogin'),
+    path('trainerlogout',views.trainerlogout,name='trainerlogout'),
 
 
 ]
