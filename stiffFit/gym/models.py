@@ -100,6 +100,10 @@ class Faq(models.Model):
     def __str__(self):
         return self.quest
 
+class Enquiry(models.Model):
+    full_name=models.CharField(max_length=150)
+    email=models.CharField(max_length=150)
+    detail=models.TextField()
 
     def __str__(self):
         return self.full_name
@@ -175,7 +179,21 @@ class PlanDiscount(models.Model):
 	def __str__(self):
 		return str(self.total_months)
 
+class Subscriber(models.Model):
+	user=models.ForeignKey(User, on_delete=models.CASCADE,null=True)
+	mobile=models.CharField(max_length=20,null=True)
+	address=models.TextField(null=True)
+	img=models.ImageField(upload_to="Subscriber/",null=True)
 
+	def __str__(self):
+		return str(self.user)
+
+	def image_tag(self):
+			return mark_safe('<img src="%s" width="80" />' % (self.img.url))
+
+
+
+            
 # Subscription
 class Subscription(models.Model):
 	user=models.ForeignKey(User, on_delete=models.CASCADE,null=True) 
