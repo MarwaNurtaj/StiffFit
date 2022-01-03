@@ -37,6 +37,7 @@ urlpatterns = [
     #TrainerLogin
     path('trainerlogin',views.trainerlogin,name='trainerlogin'),
     path('trainerlogout',views.trainerlogout,name='trainerlogout'),
+    path('trainer_dashboard',views.trainer_dashboard,name='trainer_dashboard'),
 
 
 ]

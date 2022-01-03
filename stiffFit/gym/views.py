@@ -272,4 +272,10 @@ def trainerlogin(request):
 # Trainer Logout
 def trainerlogout(request):
 	del request.session['trainerLogin']
-	return redirect('/trainerlogin')      
+	return redirect('/trainerlogin')  
+
+#Trainer Dashboard
+def trainer_dashboard(request):
+    return render(request, 'gym/Trainer/dashboard.html')    
+
+
