@@ -5,12 +5,16 @@
 		display: none;
 	}
 </style>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <!-- Main Start -->
     <main>
 		<!-- Services -->
 		<section class="container my-4">
 			<div class="row">
 				<div class="col-3">
+					<div class="list-group">
+						{% include 'gym/left-sidebar.html' %}
+					</div>	
 					
 				</div>
 				<div class="col-9">
@@ -42,9 +46,9 @@
 					$(".totalunread").text(res.totalUnread);
 					$.each(res.data,function(index,d){
 						if(d.notifStatus==true){
-							_html+='<li class="list-group-item list'+d.fields.pk+'">'+d.fields.notify_detail+'<button data-index="'+d.fields.pk+'" data-notif="'+d.fields.pk+'" class="btn btn-sm btn-secondary float-end markreadbtn markreadbtn'+d.fields.pk+'"" style="display:none;">MarkRead</button><button class="float-end btn btn-success btn-sm marked'+d.fields.pk+'"><i class="bi bi-check-square"></i></button></li>';
+							_html+='<li class="list-group-item list'+d.pk+'">'+d.notify_detail+'<button data-index="'+d.pk+'" data-notif="'+d.pk+'" class="btn btn-sm btn-secondary float-end markreadbtn markreadbtn'+d.pk+'"" style="display:none;">MarkRead</button><button class="float-end btn btn-success btn-sm marked'+d.pk+'"><i class="bi bi-check-square"></i></button></li>';
 						}else{
-							_html+='<li class="list-group-item bg-light list'+d.fields.pk+'">'+d.fields.notify_detail+'<button data-index="'+d.fields.pk+'" data-notif="'+d.fields.pk+'" class="btn btn-sm btn-secondary float-end markreadbtn markreadbtn'+d.fields.pk+'"">MarkRead</button><button class="float-end btn btn-success btn-sm marked marked'+d.fields.pk+'"><i class="bi bi-check-square"></i></button></li>';
+							_html+='<li class="list-group-item bg-light list'+d.pk+'">'+d.notify_detail+'<button data-index="'+d.pk+'" data-notif="'+d.pk+'" class="btn btn-sm btn-secondary float-end markreadbtn markreadbtn'+d.pk+'"">MarkRead</button><button class="float-end btn btn-success btn-sm marked marked'+d.pk+'"><i class="bi bi-check-square"></i></button></li>';
 						}
 					});
 					$(".notif-list").html(_html);

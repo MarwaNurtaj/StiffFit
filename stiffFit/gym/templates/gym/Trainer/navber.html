@@ -100,11 +100,23 @@
         <li><a href="{% url 'trainee' %}">Trainee</a></li>
       </ul>
       <ul>
-        <li><a href="{% url 'udashboard' %}">Trainer Dashboard</a></li>
-        <li><a href="{% url 'faq' %}">FAQ</a></li>
-        <li><a href="{% url 'enquiry' %}">Enquiry</a></li>
-        <li><a href="{% url 'gallery' %}">Gallery</a></li>
-        <li><a href="{% url 'pricing' %}">Pricing</a></li>
+        <li><a href="#">Trainer Dashboard</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          My Account
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+           
+            
+            <a class="dropdown-item" href="#">Dashboard</a>
+          
+            {% if request.session.trainerLogin %}
+            <li><a class="dropdown-item" href="#">Logout</a></li>
+            {% endif %}
+            
+           
+            
+        
         <li>
 
           <a href="{% url 'notifs' %}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -144,6 +156,8 @@
         <li><span><a class="hello-msg" href="{% url 'trainerlogout' %}">Logout</a></span></li>
         {% endif %}
       </ul>
+    </li>
+    </ul>
     </div>
   </nav>
 </body>
