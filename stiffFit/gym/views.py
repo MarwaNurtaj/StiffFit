@@ -261,7 +261,7 @@ def trainerlogin(request):
 			trainer=Trainer.objects.filter(username=username,pwd=password).first()
 			request.session['trainerLogin']=True
 			request.session['trainerid']=trainer.id
-			return redirect('/trainer_dashboard')
+			return redirect('/trainerlogin')
 		else:
 			msg='Invalid!!'
 	form=forms.TrainerLoginForm

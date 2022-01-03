@@ -16,6 +16,9 @@ class NotifyAdmin(admin.ModelAdmin):
     list_display=('notify_detail', 'read_by_user')
 admin.site.register(models.Notify,NotifyAdmin)    
 
+class NotifUserStatusAdmin(admin.ModelAdmin):
+    list_display=('notif','user','status')
+admin.site.register(models.NotifUserStatus,NotifUserStatusAdmin)
 
 
 class PageAdmin(admin.ModelAdmin):
