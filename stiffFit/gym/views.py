@@ -13,6 +13,8 @@ from django.http import HttpResponse
 from . import forms
 from django.core import serializers
 from django.http import JsonResponse
+import stripe
+
 # Create your views here.
 
 
@@ -228,7 +230,7 @@ def gallery_detail(request, id):
 
 def pricing(request):
     pricing = SubPlan.objects.all()
-    #annotate(total_members=Count('subscription__id')).all().order_by('price')
+    # annotate(total_members=Count('subscription__id')).all().order_by('price')
     dfeatures = SubPlanFeature.objects.all()
     return render(request, 'gym/pricing.html', {'plans': pricing, 'dfeatures': dfeatures})
 
@@ -253,3 +255,56 @@ def update_profile(request):
 def checkout(request, plan_id):
     planDetail = SubPlan.objects.get(pk=plan_id)
     return render(request, 'gym/checkout.html', {'plan': planDetail})
+
+
+stripe.api_key = 'sk_test_51KDwzeG64u1vLXZgyQbB7OoppkffeNsDXjHlN2imxy9IAVObrQ1nD6oet2QTkSZdJzGLK7bxqmM1ePwvnK8viLHS00bwORfvwW'
+
+
+def checkout_session(request, plan_id):
+    plan = SubPlan.objects.get(pk=plan_id)
+    session = stripe.checkout.Session.create(
+        payment_method_types=['card'],
+        line_items=[{
+            'price_data': {
+                    'currency': 'inr',
+                    'product_data': {
+                        'name': plan.title,
+                    },
+                    'unit_amount': plan.price*100,
+                    },
+            'quantity': 1,
+        }],
+        mode='payment',
+
+        success_url='http://127.0.0.1:8000/pay_success?session_id={CHECKOUT_SESSION_ID}',
+        cancel_url='http://127.0.0.1:8000/pay_cancel',
+        client_reference_id=plan_id
+
+    )
+    return redirect(session.url, code=303)
+
+
+# Success
+def pay_success(request):
+    session = stripe.checkout.Session.retrieve(request.GET['session_id'])
+    plan_id = session.client_reference_id
+    plan = SubPlan.objects.get(pk=plan_id)
+    user = request.user
+    Subscription.objects.create(
+        plan=plan,
+        user=user,
+        price=plan.price
+    )
+    return render(request, 'gym/success.html')
+
+
+
+
+
+
+
+# Cancel
+
+
+def pay_cancel(request):
+    return render(request, 'gym/cancel.html')
