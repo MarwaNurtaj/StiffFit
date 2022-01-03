@@ -276,6 +276,19 @@ def trainerlogout(request):
 
 #Trainer Dashboard
 def trainer_dashboard(request):
-    return render(request, 'gym/Trainer/dashboard.html')    
+    return render(request, 'gym/Trainer/dashboard.html')
+
+#Trainer Profile
+def trainer_profile(request):
+    msg=None
+    t_id=request.session['trainerid']
+    trainer=Trainer.objects.get(pk=t_id)
+    if request.method=='POST':
+        form=forms.TrainerProfileForm(request.POST,request.FILES,instance=trainer)
+        if form.is_valid():
+            form.save()
+            msg='Profile has been updated'
+    form = forms.TrainerProfileForm(instance=trainer)
+    return render(request, 'gym/Trainer/profile.html', {'form':form})    
 
 

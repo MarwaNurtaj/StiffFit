@@ -26,3 +26,8 @@ class TrainerLoginForm(forms.ModelForm):
 	class Meta:
 		model=models.Trainer
 		fields=('username','pwd')
+  
+class TrainerProfileForm(forms.ModelForm):
+    	class Meta:
+         model=models.Trainer
+         fields=('trainer','phone','email','img')
