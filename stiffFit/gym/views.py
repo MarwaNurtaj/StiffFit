@@ -111,7 +111,6 @@ def error_page(request):
 # Create your views here.
 
 
-
 def home(request):
     return render(request, 'gym/homepage.html')
 
@@ -248,7 +247,6 @@ def update_profile(request):
             msg = 'Data has been Updated'
     form = forms.ProfileForm(instance=request.user)
     return render(request, 'gym/update_profile.html', {'form': form, 'msg': msg})
-
 
 
 # Checkout
