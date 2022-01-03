@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <div class="list-group">
     <a href="#" class="list-group-item {% if request.path == '/#' %}  active {% endif %}">Dashboard<span class="float-end badge bg-info mt-1"></span></a>
     <a href="{% url 'update_profile' %}" class="list-group-item {% if request.path == '/update_profile' %}  active {% endif %}">Profile<span class="float-end badge bg-info mt-1"></span></a>
