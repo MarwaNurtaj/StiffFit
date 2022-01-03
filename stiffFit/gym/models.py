@@ -50,16 +50,18 @@ class Trainer(models.Model):
         return self.trainer
     
 class Trainee(models.Model):
-    trainee = models.CharField(max_length=200, null=True)
-    age = models.FloatField(null=True)
-    height = models.FloatField(null=True)
-    weight = models.FloatField(null=True)
-    email = models.CharField(max_length=200, null=True)
-    phone = models.CharField(max_length=200, null=True)
-    profile_picture = models.ImageField(default="default_profile.jpg",null=True, blank=True)
-	
-    def __str__(self):
-        return self.trainee
+	user=models.ForeignKey(User, on_delete=models.CASCADE,null=True)
+	mobile=models.CharField(max_length=20,null=True)
+	address=models.TextField(null=True)
+	img=models.ImageField(upload_to="trainee/",null=True)
+
+	def __str__(self):
+		return str(self.user)
+
+	def image_tag(self):
+			return mark_safe('<img src="%s" width="80" />' % (self.img.url))
+
+
     
 class Package(models.Model):
     TYPE = (
@@ -80,7 +82,7 @@ class Progress(models.Model):
                 ('Progressing', 'Progressing' ),
                 ('Completed', 'Completed'),
 )
-    trainee = models.ForeignKey(Trainee, null=True, on_delete=models.SET_NULL)
+    #trainee = models.ForeignKey(Trainee, null=True, on_delete=models.SET_NULL)
     trainer = models.ForeignKey(Trainer, null=True, on_delete=models.SET_NULL)
     package = models.ForeignKey(Package, null=True, on_delete=models.SET_NULL)
     status = models.CharField(max_length=200, null=True, choices=STATUS)
@@ -187,3 +189,10 @@ class PlanDiscount(models.Model):
 
 	def __str__(self):
 		return str(self.total_months)
+
+
+# Subscription
+class Subscription(models.Model):
+	user=models.ForeignKey(User, on_delete=models.CASCADE,null=True) 
+	plan=models.ForeignKey(SubPlan, on_delete=models.CASCADE,null=True)
+	price=models.CharField(max_length=50)
