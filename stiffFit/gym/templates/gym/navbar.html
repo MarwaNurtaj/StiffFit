@@ -117,12 +117,15 @@
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
+        {% if not request.user.is_authenticated %}
         <li><a href="{% url 'register_attempt'%}"><span class="user"></span> Sign Up</a></li>
-        
-        <!--li><a href="{% url 'login_attempt'%}"><span class="log-in"></span> Login</a></li-->
+        <a href="{% url 'login_attempt'%}"><span class="log-in"></span> Login</a>
         <li>
-          <h5 class="h5">Welcome, {{request.user.username}}</h5>
+        {% else %}
+        <h5 class="h5">Welcome, {{request.user.username}}</h5>
+        <li><span><a class="hello-msg" href="{% url 'logout' %}">Logout</a></span></li>
         </li>
+        {% endif %}
         <li>
           <input type="checkbox" class="checkbox" id="checkbox">
           <label for="checkbox" class="label">
@@ -138,7 +141,7 @@
             });
           </script>
         </li>
-        <li><span><a class="hello-msg" href="{% url 'logout' %}">Logout</a></span></li>
+        
       </ul>
     </div>
   </nav>
