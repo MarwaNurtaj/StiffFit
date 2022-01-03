@@ -73,3 +73,8 @@ admin.site.register(models.Subscriber,SubscriberAdmin)
 class SubscriptionAdmin(admin.ModelAdmin):
 	list_display=('user','plan','price')
 admin.site.register(models.Subscription,SubscriptionAdmin)
+
+
+class TrainerSalaryAdmin(admin.ModelAdmin):
+	list_display=('trainer','amt','amt_date')
+admin.site.register(models.TrainerSalary,TrainerSalaryAdmin)

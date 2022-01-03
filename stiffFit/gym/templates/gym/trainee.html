@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 {% include 'gym/main.html' %}
 {% load static %}
+<style>
+    .card-header{
+        color:blue;
+    }
+</style>
 
 <br>
 <div class="row">
@@ -34,7 +39,7 @@
             </table>
         </div>
     </div>
-</div>
+</div> 
 
 <div class="row">
     <div class="col-md-5">
@@ -149,6 +154,61 @@
     </div>
 </div>
 
+
+<div class="row">
+	<div class="col">
+		<div class="col-md">
+			<div class="card text-center text-black  mb-3" id="total_trainee">
+			  	<div class="card-header">
+			  		<h5 class="card-title">Total Trainee</h5>
+			  	</div>
+			  	<div class="card-body">
+			    	<h3 class="card-title">{{total_trainee}}</h3>
+			  	</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col">
+		<div class="col-md">
+			<div class="card1 text-center text-black  mb-3" id="training_pending">
+			  	<div class="card-header">
+			  		<h5 class="card-title">Pending</h5>
+			  	</div>
+			  	<div class="card-body">
+			    	<h3 class="card-title">{{pending}}</h3>
+			  	</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col">
+		<div class="col-md">
+			<div class="card2 text-center text-black  mb-3" id="training_progressing">
+			  	<div class="card-header">
+			  		<h5 class="card-title">Progressing</h5>
+			  	</div>
+			  	<div class="card-body">
+			    	<h3 class="card-title">{{progressing}}</h3>
+			  	</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="col">
+    <div class="col-md">
+        <div class="card2 text-center text-black  mb-3" id="training_completed">
+              <div class="card-header">
+                  <h5 class="card-title">Completed</h5>
+              </div>
+              <div class="card-body">
+                <h3 class="card-title">{{completed}}</h3>
+              </div>
+        </div>
+    </div>
+</div>
+</div>
 
 
 
