@@ -123,8 +123,10 @@ def error_page(request):
 
 
 def home(request):
-    get_unread_Msg = getMsg(request) 
-    return render(request, 'gym/homepage.html' ,{'totalUnread':get_unread_Msg})
+    get_unread_Msg = getMsg(request)
+    banners = Banners.objects.all()
+    gimgs = GalleryImage.objects.all().order_by('-id')[:9]
+    return render(request, 'gym/homepage.html', {'banners': banners, 'gimgs': gimgs, 'totalUnread': get_unread_Msg})
 
 
 def trainer(request):
@@ -254,7 +256,6 @@ def udashboard(request):
 		'enddate':enddate
 	})
 
-
 def update_profile(request):
     msg = None
     if request.method == 'POST':
@@ -326,9 +327,7 @@ def trainer_profile(request):
 
 # PAssWord Change View
 
-
 class PasswordsChangeView(PasswordChangeView):
-
     form_class = PasswordChangeForm
     success_url = reverse_lazy('udashboard')
 

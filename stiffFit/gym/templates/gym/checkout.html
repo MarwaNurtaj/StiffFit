@@ -77,7 +77,7 @@
                         <form method="post" action="{% url 'checkout_session' plan.id %}">
                             {% csrf_token %}
                             <input type="submit" value="Proceed to Payment" class="btn-btn-primary" />
-                            
+
                         </form>
                     </td>
                 </tr>
@@ -87,23 +87,23 @@
     <!-- End -->
 </main>
 
-{% endblock %}
+
 
 <script type="text/javascript">
-    $(document).ready(function () {
-        $(".select-validity").on('click', function () {
-            var _planPrice = $(this).attr('data-planprice');
-            var _planValid = $(this).val();
-            var _planDisc = $(this).attr('data-discount');
-            var _totalPrice = _planPrice * _planValid;
-            if (_planDisc > 0) {
-                var _calDisc = _totalPrice * _planDisc / 100;
-                _calDisc = _totalPrice - _calDisc;
-            } else {
-                _calDisc = _planPrice;
-            }
-            $(".totalAmount").text(_calDisc);
-        });
-    });
+	$(document).ready(function(){
+		$(".select-validity").on('click',function(){
+			var _planPrice=$(this).attr('data-planprice');
+			var _planValid=$(this).val();
+			var _planDisc=$(this).attr('data-discount');
+			var _totalPrice=_planPrice*_planValid;
+			if(_planDisc>0){
+				var _calDisc=_totalPrice*_planDisc/100;
+				_calDisc=_totalPrice-_calDisc;
+			}else{
+				_calDisc=_planPrice;
+			}
+			$(".totalAmount").text(_calDisc);
+		});
+	});
 </script>
-
+{% endblock %}
