@@ -71,7 +71,7 @@ class SubscriberAdmin(admin.ModelAdmin):
 admin.site.register(models.Subscriber,SubscriberAdmin)
 
 class SubscriptionAdmin(admin.ModelAdmin):
-	list_display=('user','plan','price')
+	list_display=('user','plan','reg_date','price')
 admin.site.register(models.Subscription,SubscriptionAdmin)
 
 
@@ -88,3 +88,8 @@ class TrainerNotificationAdmin(admin.ModelAdmin):
 admin.site.register(models.TrainerNotification,TrainerNotificationAdmin)
 
 
+
+
+class TrainerAchivementAdmin(admin.ModelAdmin):
+	list_display=('title','image_tag')
+admin.site.register(models.TrainerAchivement,TrainerAchivementAdmin)
