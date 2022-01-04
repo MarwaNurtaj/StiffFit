@@ -390,3 +390,7 @@ def pay_success(request):
 
 def pay_cancel(request):
     return render(request, 'gym/cancel.html')
+#Trainer Notification
+def trainer_notifs(request):
+    data=TrainerNotification.objects.all().order_by('-id')
+    return render(request, 'gym/Trainer/notif.html',{'notifs':data})

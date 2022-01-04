@@ -41,6 +41,7 @@ urlpatterns = [
     path('trainer_dashboard',views.trainer_dashboard,name='trainer_dashboard'),
     path('trainer_profile',views.trainer_profile,name='trainer_profile'),
     path('trainer_changepassword',views.trainer_changepassword,name='trainer_changepassword'),
+    path('trainer_notifs',views.trainer_notifs,name='trainer_notifs'),
 
     #Password Reset
     path('reset_password/',

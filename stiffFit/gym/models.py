@@ -241,3 +241,18 @@ class AssignSubscriber(models.Model):
 
 	def __str__(self):
 		return str(self.user)
+    
+#Trainer Notification
+class TrainerNotification(models.Model):
+    notif_msg=models.TextField()
+    
+    def __str__(self):
+        return str(self.notif_msg)
+    
+#Marks read Notification by trainer
+class NotifTrainerStatus(models.Model):
+    notif_msg=models.ForeignKey(TrainerNotification, on_delete=models.CASCADE)
+    trainer=models.ForeignKey(Trainer, on_delete=models.CASCADE)
+    status=models.BooleanField(default=False)
+    class Meta:
+        verbose_name_plural='Trainer Notification Status'

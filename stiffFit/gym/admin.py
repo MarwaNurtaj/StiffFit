@@ -83,3 +83,8 @@ admin.site.register(models.TrainerSalary,TrainerSalaryAdmin)
 class AssignSubscriberAdmin(admin.ModelAdmin):
 	list_display=('trainer','user')
 admin.site.register(models.AssignSubscriber,AssignSubscriberAdmin)
+class TrainerNotificationAdmin(admin.ModelAdmin):
+    	list_display=('notif_msg',)
+admin.site.register(models.TrainerNotification,TrainerNotificationAdmin)
+
+
