@@ -23,6 +23,7 @@ class ProfileForm(UserChangeForm):
 		fields=('first_name','last_name','email','username')
 
 class TrainerLoginForm(forms.ModelForm):
+	pwd = forms.CharField(widget=forms.PasswordInput)
 	class Meta:
 		model=models.Trainer
 		fields=('username','pwd')
