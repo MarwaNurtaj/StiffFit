@@ -167,3 +167,6 @@ EMAIL_HOST_USER='eilearn321@gmail.com'
 EMAIL_HOST_PASSWORD='poro1234'
 #eilearn321@gmail.com
 #password : poro1234
+
+
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

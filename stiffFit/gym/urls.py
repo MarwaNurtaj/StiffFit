@@ -10,7 +10,7 @@ urlpatterns = [
 
     
     path('trainer/', views.trainer, name="trainer"),
-    path('trainee/', views.trainee, name="trainee"),
+    #path('trainee/', views.trainee, name="trainee"),
 	path('logout/', views.logoutUser, name="logout"),
 	
     path('pagedetail/<int:id>/',views.page_detail, name='pagedetail'),
@@ -41,6 +41,9 @@ urlpatterns = [
     path('trainer_profile',views.trainer_profile,name='trainer_profile'),
     path('trainer_changepassword',views.trainer_changepassword,name='trainer_changepassword'),
 
+    path('checkout_session/<int:plan_id>',views.checkout_session,name='checkout_session'),
+	path('pay_success',views.pay_success,name='pay_success'),
+	path('pay_cancel',views.pay_cancel,name='pay_cancel'),
 
 ]
 

@@ -1,3 +1,4 @@
+from django.core.mail import EmailMessage
 from .models import*
 from gym.models import Profile
 from django.shortcuts import redirect, render
@@ -13,6 +14,10 @@ from django.http import HttpResponse
 from . import forms
 from django.core import serializers
 from django.http import JsonResponse
+import stripe
+from django.template.loader import get_template
+
+
 # Create your views here.
 
 
@@ -111,28 +116,12 @@ def error_page(request):
 # Create your views here.
 
 
-
 def home(request):
     return render(request, 'gym/homepage.html')
 
 
 def trainer(request):
     return render(request, 'gym/trainer.html')
-
-
-def trainee(request):
-    trainee = Trainee.objects.all()
-    package = Package.objects.all()
-    progress = Progress.objects.all()
-
-    total_trainee = trainee.count()
-    pending = progress.filter(status='Pending').count()
-    progressing = progress.filter(status='Progressing').count()
-    completed = progress.filter(status='Completed').count()
-
-    context = {'trainee': trainee, 'package': package, 'progress': progress, 'total_trainee': total_trainee,
-               'pending': pending, 'progressing': progressing, 'completed': completed}
-    return render(request, 'gym/trainee.html', context)
 
 
 def page_detail(request, id):
@@ -229,7 +218,7 @@ def gallery_detail(request, id):
 
 def pricing(request):
     pricing = SubPlan.objects.all()
-    #annotate(total_members=Count('subscription__id')).all().order_by('price')
+    # annotate(total_members=Count('subscription__id')).all().order_by('price')
     dfeatures = SubPlanFeature.objects.all()
     return render(request, 'gym/pricing.html', {'plans': pricing, 'dfeatures': dfeatures})
 
@@ -272,7 +261,7 @@ def trainerlogin(request):
 def trainerlogout(request):
 	del request.session['trainerLogin']
 	return redirect('/trainerlogin')
-	   
+
 
 # Checkout
 def checkout(request, plan_id):
@@ -313,3 +302,61 @@ def trainer_changepassword(request):
                 
     form = forms.TrainerChangePassword
     return render(request, 'gym/Trainer/changepassword.html', {'form':form})
+
+
+stripe.api_key = 'sk_test_51KDwzeG64u1vLXZgyQbB7OoppkffeNsDXjHlN2imxy9IAVObrQ1nD6oet2QTkSZdJzGLK7bxqmM1ePwvnK8viLHS00bwORfvwW'
+
+
+def checkout_session(request, plan_id):
+    plan = SubPlan.objects.get(pk=plan_id)
+    session = stripe.checkout.Session.create(
+        payment_method_types=['card'],
+        line_items=[{
+            'price_data': {
+                    'currency': 'inr',
+                    'product_data': {
+                        'name': plan.title,
+                    },
+                    'unit_amount': plan.price*100,
+                    },
+            'quantity': 1,
+        }],
+        mode='payment',
+
+        success_url='http://127.0.0.1:8000/pay_success?session_id={CHECKOUT_SESSION_ID}',
+        cancel_url='http://127.0.0.1:8000/pay_cancel',
+        client_reference_id=plan_id
+
+    )
+    return redirect(session.url, code=303)
+
+
+# Success
+
+from django.core.mail import EmailMessage
+def pay_success(request):
+    session = stripe.checkout.Session.retrieve(request.GET['session_id'])
+    plan_id = session.client_reference_id
+    plan = SubPlan.objects.get(pk=plan_id)
+    user = request.user
+    Subscription.objects.create(
+        plan=plan,
+        user=user,
+        price=plan.price
+    )
+    subject = 'Order Email'
+    html_content = get_template(
+        'gym/orderemail.html').render({'title': plan.title})
+    from_email = 'eilearn321@gmail.com'
+
+    msg = EmailMessage(subject, html_content, from_email, [
+        'stifffit2020@gmail.com'])
+    msg.content_subtype = "html"  # Main content is now in text/html
+    msg.send()
+    return render(request, 'gym/success.html')
+
+
+# Cancel
+
+def pay_cancel(request):
+    return render(request, 'gym/cancel.html')
