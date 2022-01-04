@@ -313,3 +313,8 @@ def trainer_changepassword(request):
                 
     form = forms.TrainerChangePassword
     return render(request, 'gym/Trainer/changepassword.html', {'form':form})
+
+#Trainer Notification
+def trainer_notifs(request):
+    data=TrainerNotification.objects.all().order_by('-id')
+    return render(request, 'gym/Trainer/notif.html',{'notifs':data})
