@@ -88,3 +88,5 @@ class TrainerNotificationAdmin(admin.ModelAdmin):
 admin.site.register(models.TrainerNotification,TrainerNotificationAdmin)
 
 
+
+

@@ -394,3 +394,15 @@ def pay_cancel(request):
 def trainer_notifs(request):
     data=TrainerNotification.objects.all().order_by('-id')
     return render(request, 'gym/Trainer/notif.html',{'notifs':data})
+
+#Trainer Subscribers
+def trainer_subscribers(request):
+    trainer=Trainer.objects.get(pk=request.session['trainerid'])
+    trainer_subs=AssignSubscriber.objects.filter(trainer=trainer).order_by('-id')
+    return render(request, 'gym/Trainer/subscribers.html', {'trainer_subs':trainer_subs})
+
+#Trainers Payments
+def trainer_payments(request):
+    trainer=Trainer.objects.get(pk=request.session['trainerid'])
+    trainer_pays=TrainerSalary.objects.filter(trainer=trainer).order_by('-id')
+    return render(request, 'gym/Trainer/payments.html', {'trainer_pays':trainer_pays})

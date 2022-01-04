@@ -29,7 +29,7 @@ class TrainerLoginForm(forms.ModelForm):
 		fields=('username','pwd')
   
 class TrainerProfileForm(forms.ModelForm):
-    	class Meta:
+    class Meta:
          model=models.Trainer
          fields=('trainer','phone','email','img')
          

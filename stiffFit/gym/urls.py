@@ -40,6 +40,8 @@ urlpatterns = [
     path('trainerlogout',views.trainerlogout,name='trainerlogout'),
     path('trainer_dashboard',views.trainer_dashboard,name='trainer_dashboard'),
     path('trainer_profile',views.trainer_profile,name='trainer_profile'),
+    path('trainer_subscribers',views.trainer_subscribers,name='trainer_subscribers'),
+    path('trainer_payments',views.trainer_payments,name='trainer_payments'),
     path('trainer_changepassword',views.trainer_changepassword,name='trainer_changepassword'),
     path('trainer_notifs',views.trainer_notifs,name='trainer_notifs'),
 
