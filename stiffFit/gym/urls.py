@@ -10,7 +10,7 @@ urlpatterns = [
 
     
     path('trainer/', views.trainer, name="trainer"),
-    path('trainee/', views.trainee, name="trainee"),
+    #path('trainee/', views.trainee, name="trainee"),
 	path('logout/', views.logoutUser, name="logout"),
 	path('logout/', views.logoutUser, name="logout"),
     path('pagedetail/<int:id>/',views.page_detail, name='pagedetail'),
