@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 from django.contrib.auth.forms import PasswordChangeForm
-=======
 from django.core.mail import EmailMessage
->>>>>>> 3578b828916792721688a786ba0b21c36a9f17e0
 from .models import*
 from gym.models import Profile
 from django.shortcuts import redirect, render
@@ -19,13 +16,10 @@ from django.http import HttpResponse
 from . import forms
 from django.core import serializers
 from django.http import JsonResponse
-<<<<<<< HEAD
 from django.urls import reverse_lazy
-=======
 import stripe
 from django.template.loader import get_template
 
->>>>>>> 3578b828916792721688a786ba0b21c36a9f17e0
 
 # Create your views here.
 
