@@ -1,3 +1,4 @@
+from django.contrib.auth.forms import PasswordChangeForm
 from .models import*
 from gym.models import Profile
 from django.shortcuts import redirect, render
@@ -8,11 +9,14 @@ import uuid
 from django.conf import settings
 from django.core.mail import send_mail
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.views import PasswordChangeView
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from . import forms
 from django.core import serializers
 from django.http import JsonResponse
+from django.urls import reverse_lazy
+
 # Create your views here.
 
 
@@ -235,8 +239,26 @@ def pricing(request):
 
 
 def udashboard(request):
-
-    return render(request, 'gym/dashboard.html')
+    data = Notify.objects.all().order_by('-id')
+    notifStatus = False
+    jsonData = []
+    totalUnread = 0
+    for d in data:
+        try:
+            notifStatusData = NotifUserStatus.objects.get(
+                user=request.user, notif=d)
+            if notifStatusData:
+                notifStatus = True
+        except NotifUserStatus.DoesNotExist:
+            notifStatus = False
+        if not notifStatus:
+            totalUnread = totalUnread+1
+        jsonData.append({
+                        'pk': d.id,
+                        'notify_detail': d.notify_detail,
+                        'notifStatus': notifStatus
+                        })
+    return render(request, 'gym/dashboard.html',{'totalUnread': totalUnread})
 
 
 def update_profile(request):
@@ -281,6 +303,9 @@ def checkout(request, plan_id):
 	
 
 #Trainer Dashboard
+def trainer_notif(request):
+    return render(request, 'gym/Trainer/TrainerNotif.html')
+
 def trainer_dashboard(request):
     return render(request, 'gym/Trainer/dashboard.html')
 
@@ -297,4 +322,9 @@ def trainer_profile(request):
     form = forms.TrainerProfileForm(instance=trainer)
     return render(request, 'gym/Trainer/profile.html', {'form':form})    
 
-
+#PAssWord Change View
+class PasswordsChangeView(PasswordChangeView):
+    
+    form_class = PasswordChangeForm
+    success_url = reverse_lazy('udashboard')
+  
