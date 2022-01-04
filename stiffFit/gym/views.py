@@ -19,7 +19,7 @@ from django.http import JsonResponse
 from django.urls import reverse_lazy
 import stripe
 from django.template.loader import get_template
-
+from django.db.models import Count
 
 # Create your views here.
 
@@ -220,8 +220,7 @@ def gallery_detail(request, id):
 
 
 def pricing(request):
-    pricing = SubPlan.objects.all()
-    # annotate(total_members=Count('subscription__id')).all().order_by('price')
+    pricing = SubPlan.objects.annotate(total_members=Count('subscription__id')).all().order_by('price')
     dfeatures = SubPlanFeature.objects.all()
     return render(request, 'gym/pricing.html', {'plans': pricing, 'dfeatures': dfeatures})
 
@@ -247,6 +246,7 @@ def udashboard(request):
                         'notifStatus': notifStatus
                         })
     return render(request, 'gym/dashboard.html',{'totalUnread': totalUnread})
+
 
 
 def update_profile(request):

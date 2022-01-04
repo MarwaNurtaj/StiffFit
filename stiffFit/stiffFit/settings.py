@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'gym',
+    'mathfilters',
 ]
 
 JAZZMIN_SETTINGS = {
@@ -56,7 +57,7 @@ JAZZMIN_SETTINGS = {
 
     # CSS classes that are applied to the logo above
     "site_logo_classes": "img-circle",
-   
+
 }
 
 

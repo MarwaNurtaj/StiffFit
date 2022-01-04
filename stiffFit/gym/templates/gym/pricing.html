@@ -1,4 +1,6 @@
+<!DOCTYPE html>
 {% extends 'gym/main.html' %}
+{% load mathfilters %}
 {% load static %}
 
 
@@ -7,7 +9,7 @@
 <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-icons/font/bootstrap-icons.css' %}" />
 <section class="container my-4">
     <h1 class="text-center mb-4 section-heading border-bottom pb-2">Plans</h1>
-    <main>
+
         <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
             {% for plan in plans %}
             <div class="col">
@@ -24,7 +26,7 @@
 
                                 <small class="text-muted fw-light">/{{plan.validity_days}} Days</small>
                             </h1>
-                            <p class="text-success">Member Capacity {{plan.max_member}}</p>
+                            <p class="text-success">Member Capacity {{plan.max_member|sub:plan.total_members}}</p>
 
                             <ul class="list-unstyled mt-3 mb-4">
                                 {% for feature in plan.subplanfeature_set.all %}
@@ -74,6 +76,6 @@
                     </tbody>
                 </table>
             </div>
-    </main>
+        </div>
 </section>
 {% endblock %}
