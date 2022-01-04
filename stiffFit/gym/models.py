@@ -23,14 +23,17 @@ class Profile(models.Model):
         return self.user.username
 
 class Banners(models.Model):
-    img = models.ImageField(upload_to="banners/", null=True)
-    alt_text = models.CharField(max_length=150 , null=True)
+	img=models.ImageField(upload_to="banners/" ,null=True)
+	alt_text=models.CharField(max_length=150,null=True)
 
-    def __str__(self):
-        return self.alt_text
+	class Meta:
+		verbose_name_plural='Banners'
 
-    def image_tag(self):
-        return mark_safe('<img src="%s" width="80" />' % (self.img.url))
+	def __str__(self):
+		return self.alt_text
+
+	def image_tag(self):
+		return mark_safe('<img src="%s" width="80" />' % (self.img.url))
     
 class Trainer(models.Model):
     CATEGORY = (
