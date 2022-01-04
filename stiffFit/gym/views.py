@@ -1,3 +1,4 @@
+from .utils import *
 from django.contrib.auth.forms import PasswordChangeForm
 from django.core.mail import EmailMessage
 from .models import*
@@ -20,6 +21,8 @@ from django.urls import reverse_lazy
 import stripe
 from django.template.loader import get_template
 from django.db.models import Count
+from datetime import timedelta
+
 
 # Create your views here.
 
@@ -120,16 +123,18 @@ def error_page(request):
 
 
 def home(request):
-    return render(request, 'gym/homepage.html')
+    get_unread_Msg = getMsg(request) 
+    return render(request, 'gym/homepage.html' ,{'totalUnread':get_unread_Msg})
 
 
 def trainer(request):
-    return render(request, 'gym/trainer.html')
+    get_unread_Msg = getMsg(request) 
+    return render(request, 'gym/trainer.html',{'totalUnread':get_unread_Msg})
 
 
 def page_detail(request, id):
     page = Page.objects.get(id=id)
-    return render(request, 'gym/page.html', {'page': page})
+    return render(request, 'gym/page.html', {'page': page,})
 
 
 def logoutUser(request):
@@ -138,13 +143,15 @@ def logoutUser(request):
 
 
 def notifs(request):
+    get_unread_Msg = getMsg(request) 
     data = Notify.objects.all().order_by('-id')
-    return render(request, 'gym/notification.html')
+    return render(request, 'gym/notification.html',{'totalUnread':get_unread_Msg})
 
 # Get All Notifications
 
 
 def get_notifs(request):
+
     data = Notify.objects.all().order_by('-id')
     notifStatus = False
     jsonData = []
@@ -187,11 +194,13 @@ def send_mail_after_registration(email, token):
 
 
 def faq_list(request):
+    get_unread_Msg = getMsg(request) 
     faq = Faq.objects.all()
-    return render(request, 'gym/faq.html', {'faqs': faq})
+    return render(request, 'gym/faq.html', {'faqs': faq, 'totalUnread': get_unread_Msg})
 
 
 def enquiry_list(request):
+    get_unread_Msg = getMsg(request) 
     msg = ''
     if request.method == 'POST':
         form = forms.EnquiryForm(request.POST)
@@ -199,7 +208,7 @@ def enquiry_list(request):
             form.save()
             msg = 'Data has been saved'
     form = forms.EnquiryForm
-    return render(request, 'gym/enquiry.html', {'form': form, 'msg': msg})
+    return render(request, 'gym/enquiry.html', {'form': form, 'msg': msg, 'totalUnread': get_unread_Msg})
 
 
 def video(request):
@@ -207,46 +216,43 @@ def video(request):
 
 
 def gallery(request):
+    get_unread_Msg = getMsg(request) 
     gallery = Gallery.objects.all().order_by('-id')
-    return render(request, 'gym/gallery.html', {'galleries': gallery})
+    return render(request, 'gym/gallery.html', {'galleries': gallery,'totalUnread':get_unread_Msg})
 
 
 def gallery_detail(request, id):
+    get_unread_Msg = getMsg(request) 
     gallery = Gallery.objects.get(id=id)
     gallery_imgs = GalleryImage.objects.all().filter(gallery=gallery).order_by('-id')
-    return render(request, 'gym/gallery_imgs.html', {'gallery_imgs': gallery_imgs, 'gallery': gallery})
+    return render(request, 'gym/gallery_imgs.html', {'gallery_imgs': gallery_imgs, 'gallery': gallery,'totalUnread':get_unread_Msg})
 
 # Subscription Plans
 
 
 def pricing(request):
-    pricing = SubPlan.objects.annotate(total_members=Count('subscription__id')).all().order_by('price')
+    get_unread_Msg = getMsg(request) 
+    pricing = SubPlan.objects.annotate(total_members=Count(
+        'subscription__id')).all().order_by('price')
     dfeatures = SubPlanFeature.objects.all()
-    return render(request, 'gym/pricing.html', {'plans': pricing, 'dfeatures': dfeatures})
+    return render(request, 'gym/pricing.html', {'plans': pricing, 'dfeatures': dfeatures,'totalUnread':get_unread_Msg})
+
 
 
 def udashboard(request):
-    data = Notify.objects.all().order_by('-id')
-    notifStatus = False
-    jsonData = []
-    totalUnread = 0
-    for d in data:
-        try:
-            notifStatusData = NotifUserStatus.objects.get(
-                user=request.user, notif=d)
-            if notifStatusData:
-                notifStatus = True
-        except NotifUserStatus.DoesNotExist:
-            notifStatus = False
-        if not notifStatus:
-            totalUnread = totalUnread+1
-        jsonData.append({
-                        'pk': d.id,
-                        'notify_detail': d.notify_detail,
-                        'notifStatus': notifStatus
-                        })
-    return render(request, 'gym/dashboard.html',{'totalUnread': totalUnread})
+    get_unread_Msg = getMsg(request) 
+    current_plan=Subscription.objects.get(user=request.user)
+    my_trainer=AssignSubscriber.objects.get(user=request.user)
+    
+    enddate=current_plan.reg_date+timedelta(days=current_plan.plan.validity_days)
 
+	
+    return render(request, 'gym/User/dashboard.html',{
+		'current_plan':current_plan,
+		'my_trainer':my_trainer,
+		'totalUnread':get_unread_Msg,
+		'enddate':enddate
+	})
 
 
 def update_profile(request):
@@ -257,81 +263,92 @@ def update_profile(request):
             form.save()
             msg = 'Data has been Updated'
     form = forms.ProfileForm(instance=request.user)
-    return render(request, 'gym/update_profile.html', {'form': form, 'msg': msg})
+    return render(request, 'gym/User/update_profile.html', {'form': form, 'msg': msg})
 
 
 # trainer login
 def trainerlogin(request):
-	msg=''
-	if request.method=='POST':
-		username=request.POST['username']
-		password=request.POST['pwd']
-		trainer=Trainer.objects.filter(username=username,pwd=password).count()
-		if trainer > 0:
-			trainer=Trainer.objects.filter(username=username,pwd=password).first()
-			request.session['trainerLogin']=True
-			request.session['trainerid']=trainer.id
-			return redirect('/trainer_dashboard')
-		else:
-			msg='Invalid!!'
-	form=forms.TrainerLoginForm
-    
-	return render(request, 'gym/Trainer/Trainerlogin.html',{'form':form,'msg':msg})
+    msg = ''
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['pwd']
+        trainer = Trainer.objects.filter(
+            username=username, pwd=password).count()
+        if trainer > 0:
+            trainer = Trainer.objects.filter(
+                username=username, pwd=password).first()
+            request.session['trainerLogin'] = True
+            request.session['trainerid'] = trainer.id
+            return redirect('/trainer_dashboard')
+        else:
+            msg = 'Invalid!!'
+    form = forms.TrainerLoginForm
+
+    return render(request, 'gym/Trainer/Trainerlogin.html', {'form': form, 'msg': msg})
 
 # Trainer Logout
+
+
 def trainerlogout(request):
-	del request.session['trainerLogin']
-	return redirect('/trainerlogin')
+    del request.session['trainerLogin']
+    return redirect('/trainerlogin')
 
 
 # Checkout
 def checkout(request, plan_id):
     planDetail = SubPlan.objects.get(pk=plan_id)
     return render(request, 'gym/checkout.html', {'plan': planDetail})
-	
 
-#Trainer Dashboard
+
+# Trainer Dashboard
 def trainer_notif(request):
     return render(request, 'gym/Trainer/TrainerNotif.html')
+
 
 def trainer_dashboard(request):
     return render(request, 'gym/Trainer/dashboard.html')
 
-#Trainer Profile
+# Trainer Profile
+
+
 def trainer_profile(request):
-    msg=None
-    t_id=request.session['trainerid']
-    trainer=Trainer.objects.get(pk=t_id)
-    if request.method=='POST':
-        form=forms.TrainerProfileForm(request.POST,request.FILES,instance=trainer)
+    msg = None
+    t_id = request.session['trainerid']
+    trainer = Trainer.objects.get(pk=t_id)
+    if request.method == 'POST':
+        form = forms.TrainerProfileForm(
+            request.POST, request.FILES, instance=trainer)
         if form.is_valid():
             form.save()
-            msg='Profile has been updated'
+            msg = 'Profile has been updated'
     form = forms.TrainerProfileForm(instance=trainer)
-    return render(request, 'gym/Trainer/profile.html', {'form':form})    
+    return render(request, 'gym/Trainer/profile.html', {'form': form})
 
-#PAssWord Change View
+# PAssWord Change View
+
+
 class PasswordsChangeView(PasswordChangeView):
-    
+
     form_class = PasswordChangeForm
     success_url = reverse_lazy('udashboard')
-  
 
-#Trainer Change Password 
+
+# Trainer Change Password
 def trainer_changepassword(request):
-    #trainer=Trainer.objects.get(pk=request.session['trainerid'])
-    msg=None
-    if request.method=='POST':
-        new_password=request.POST['new_password']
-        updateRes=Trainer.objects.filter(pk=request.session['trainerid']).update(pwd=new_password)
+    # trainer=Trainer.objects.get(pk=request.session['trainerid'])
+    msg = None
+    if request.method == 'POST':
+        new_password = request.POST['new_password']
+        updateRes = Trainer.objects.filter(
+            pk=request.session['trainerid']).update(pwd=new_password)
         if updateRes:
             del request.session['trainerLogin']
             return redirect('/trainerlogin')
         else:
-            msg='Something is weong!!'
-                
+            msg = 'Something is weong!!'
+
     form = forms.TrainerChangePassword
-    return render(request, 'gym/Trainer/changepassword.html', {'form':form})
+    return render(request, 'gym/Trainer/changepassword.html', {'form': form})
 
 
 stripe.api_key = 'sk_test_51KDwzeG64u1vLXZgyQbB7OoppkffeNsDXjHlN2imxy9IAVObrQ1nD6oet2QTkSZdJzGLK7bxqmM1ePwvnK8viLHS00bwORfvwW'
@@ -363,7 +380,7 @@ def checkout_session(request, plan_id):
 
 # Success
 
-from django.core.mail import EmailMessage
+
 def pay_success(request):
     session = stripe.checkout.Session.retrieve(request.GET['session_id'])
     plan_id = session.client_reference_id
@@ -390,3 +407,5 @@ def pay_success(request):
 
 def pay_cancel(request):
     return render(request, 'gym/cancel.html')
+
+
