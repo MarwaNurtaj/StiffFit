@@ -297,3 +297,18 @@ def trainer_profile(request):
     return render(request, 'gym/Trainer/profile.html', {'form':form})    
 
 
+#Trainer Change Password 
+def trainer_changepassword(request):
+    #trainer=Trainer.objects.get(pk=request.session['trainerid'])
+    msg=None
+    if request.method=='POST':
+        new_password=request.POST['new_password']
+        updateRes=Trainer.objects.filter(pk=request.session['trainerid']).update(pwd=new_password)
+        if updateRes:
+            del request.session['trainerLogin']
+            return redirect('/trainerlogin')
+        else:
+            msg='Something is weong!!'
+                
+    form = forms.TrainerChangePassword
+    return render(request, 'gym/Trainer/changepassword.html', {'form':form})
