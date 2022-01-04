@@ -35,8 +35,9 @@ class Trainer(models.Model):
     email = models.CharField(max_length=200, null=True)
     phone = models.CharField(max_length=200, null=True)
     is_active=models.BooleanField(default=False)
-    img=models.ImageField(upload_to="trainers/", null=True)
     salary=models.IntegerField(default=0)
+    img=models.ImageField(upload_to="trainers/", null=True)
+    
     
     facebook=models.CharField(max_length=200,null=True)
     twitter=models.CharField(max_length=200,null=True)

@@ -58,7 +58,7 @@ admin.site.register(models.SubPlanFeature,SubPlanFeatureAdmin)
 
 class TrainerAdmin(admin.ModelAdmin):
 	list_editable=('is_active',)
-	list_display=('trainer','phone','is_active','Image_tag',)
+	list_display=('trainer','phone','salary','is_active','Image_tag')
 admin.site.register(models.Trainer,TrainerAdmin)
 
 
