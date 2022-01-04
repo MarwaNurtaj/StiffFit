@@ -258,5 +258,11 @@ class NotifTrainerStatus(models.Model):
     class Meta:
         verbose_name_plural='Trainer Notification Status'
         
-
-    
+#SubscriberMsg
+class TrainerMsg(models.Model):
+    user=models.ForeignKey(User, on_delete=models.CASCADE,null=True)
+    trainer=models.ForeignKey(Trainer, on_delete=models.CASCADE,null=True)
+    message=models.TextField()
+    user_type=models.CharField(max_length=100,default='admin')
+    class Meta:
+        verbose_name_plural='Messages For Trainer'
