@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% include 'gym/main.html' %}
+{% extends 'gym/main.html' %}
 
 {% load static %}
 <style>
@@ -15,8 +15,9 @@
 		justify-content: center;
 	}
 </style>
-{% block content %}
 
+{% block content %}
+<main>
 <img src="{% static '/images/gym.jpg' %}" style="width:100%">
 <h1>Welcome to Stiff Fit</h1>
 
@@ -101,7 +102,7 @@
 						Nutrition Advisor Subjects & More. All Our Courses Are Certified/Accredited
 						With A Large Learning Community Too - Enrol Today.
 						..</p>
-					<a href="{% url 'pagedetail' 1 %}" class="btn btn-primary">Read More</a>
+					<a href="{% url 'pagedetail' 2 %}" class="btn btn-primary">Read More</a>
 				</div>
 			</div>
 		</div>
@@ -124,18 +125,22 @@
 					<h1 class="mb-4 section-heading">Gallery <a href="#" class="float-end 
 					btn btn-info text-white mt-2">View All</a></h1>
 					<div class="gallery">
+						<div class="d-flex flex-wrap">
 						{% for gimg in gimgs %}
-						<a href="{{gimg.img.url}}" data-lightbox="gallery">
-							<img src="{{gimg.img.url}}" width="155" class="img-thumbnail" 
-							alt="{{gimg.alt_text}}"></a>
+						
+						<a href="{{gimg.img.url}}" data-lightbox="gallery"><img src="
+						{{gimg.img.url}}" hight="300px" width="200px" class="img-thumbnail" alt="{{gimg.alt_text}}"></a>
+						
 						{% endfor %}
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
-
+</main>
 <!-- End -->
+
 
 
 
