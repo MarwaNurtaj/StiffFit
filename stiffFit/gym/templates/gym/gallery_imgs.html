@@ -1,4 +1,7 @@
+<!DOCTYPE html>
 {% extends 'gym/main.html' %}
+
+{% load static %}
 {% block content %}
 <!-- Main Start -->
 <main>
@@ -9,7 +12,9 @@
             {% for gimg in gallery_imgs %}
             <div class="col-md-4 mb-4">
                 <div class="card">
-                    <img src="{{gimg.img.url}}" class="card-img-top" alt="{{gimg.alt_text}}">
+                    <a href="{{gimg.img.url}}" data-lightbox="gallery"><img src="
+						{{gimg.img.url}}" hight="300px" width="200px" class="img-thumbnail" alt="{{gimg.alt_text}}"></a>
+                    
                 </div>
             </div>
             {% endfor %}
@@ -17,5 +22,13 @@
     </section>
     <!-- End -->
 </main>
-<!-- End -->
+<!-- End 
+<img src="{{gimg.img.url}}" class="card-img-top" alt="{{gimg.alt_text}}">-->
+
+<!-- LightBox css 
+<link rel="stylesheet" type="text/css" href="{% static 'lightbox2-2.11.3/dist/css/lightbox.min.css' %}" />
+
+--><!-- LightBox Js -->
+
+
 {% endblock %}
