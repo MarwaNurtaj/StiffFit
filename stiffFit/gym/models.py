@@ -65,19 +65,6 @@ class Trainer(models.Model):
 
 
 
-    
-
-
- 
-    
-    
-
-
-
-
-
-
-
 
 
 class Package(models.Model):
@@ -247,3 +234,10 @@ class TrainerSalary(models.Model):
         return str (self.trainer.trainer)
 
 # SubscriberMsg
+# Assign Subscriber to Trainer
+class AssignSubscriber(models.Model):
+	user=models.ForeignKey(User, on_delete=models.CASCADE,null=True)
+	trainer=models.ForeignKey(Trainer, on_delete=models.CASCADE)
+
+	def __str__(self):
+		return str(self.user)
