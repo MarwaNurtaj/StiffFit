@@ -42,16 +42,13 @@ urlpatterns = [
     path('trainer_profile',views.trainer_profile,name='trainer_profile'),
     path('trainer_changepassword',views.trainer_changepassword,name='trainer_changepassword'),
 
-<<<<<<< HEAD
     #Password Reset
     path('reset_password/',
      auth_views.PasswordResetView.as_view(template_name="gym/password_reset.html"),
      name="reset_password"),
-=======
     path('checkout_session/<int:plan_id>',views.checkout_session,name='checkout_session'),
 	path('pay_success',views.pay_success,name='pay_success'),
 	path('pay_cancel',views.pay_cancel,name='pay_cancel'),
->>>>>>> 3578b828916792721688a786ba0b21c36a9f17e0
 
     path('reset_password_sent/', 
         auth_views.PasswordResetDoneView.as_view(template_name="gym/password_reset_sent.html"), 
