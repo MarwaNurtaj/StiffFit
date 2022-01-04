@@ -95,11 +95,7 @@
             <li><a href="{% url 'trainer' %}">Gym Master</a></li>
             <li><a href="{% url 'trainer' %}">Nutritionist</a></li>
           </ul>
-        </li>
-        
-        <li><a href="#">Trainee</a></li>
-      </ul>
-      <ul>
+        </li> 
         <li><a href="{% url 'udashboard' %}">User Dashboard</a></li>
         <li><a href="{% url 'faq' %}">FAQ</a></li>
         <li><a href="{% url 'enquiry' %}">Enquiry</a></li>
@@ -114,7 +110,6 @@
             </svg><span class="badge bg-danger mt-1">{{totalUnread}}</span></a>
 
         </li>
-      </ul>
       
       <ul class="nav navbar-nav navbar-right">
         {% if not request.user.is_authenticated %}
@@ -144,5 +139,4 @@
         
       </ul>
     </div>
-  </nav>
 </body>
