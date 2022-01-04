@@ -31,3 +31,6 @@ class TrainerProfileForm(forms.ModelForm):
     	class Meta:
          model=models.Trainer
          fields=('trainer','phone','email','img')
+         
+class TrainerChangePassword(forms.Form):
+    new_password=forms.CharField(max_length=50,required=True)
