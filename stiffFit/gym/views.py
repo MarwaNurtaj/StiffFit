@@ -406,3 +406,8 @@ def trainer_payments(request):
     trainer=Trainer.objects.get(pk=request.session['trainerid'])
     trainer_pays=TrainerSalary.objects.filter(trainer=trainer).order_by('-id')
     return render(request, 'gym/Trainer/payments.html', {'trainer_pays':trainer_pays})
+
+#Trainer Messages
+def trainer_msgs(request):
+    data=TrainerMsg.objects.all().order_by('-id')
+    return render(request, 'gym/Trainer/msgs.html',{'msgs':data})
