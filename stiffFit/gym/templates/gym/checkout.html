@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {% extends 'gym/main.html' %}
 {% load static %}
+
 {% block content %}
 
 <main>
@@ -25,7 +26,7 @@
                             </tr>
                             <tr>
                                 <th>Price</th>
-                                <td>${{plan.price}}</td>
+                                <td>Tk{{plan.price}}</td>
                             </tr>
                             <tr>
                                 <th>Max Member</th>
@@ -68,11 +69,17 @@
                 <tr>
                     <td></td>
                     <th>Total Amount</th>
-                    <td><b>$<span class="totalAmount">{{plan.price}}</span></b></td>
+                    <td><b>Tk<span class="totalAmount">{{plan.price}}</span></b></td>
                 </tr>
                 <tr>
                     <td colspan="2"></td>
-                    <td><input type="submit" value="Proceed to Payment" class="btn-btn-primary" /></td>
+                    <td>
+                        <form method="post" action="{% url 'checkout_session' plan.id %}">
+                            {% csrf_token %}
+                            <input type="submit" value="Proceed to Payment" class="btn-btn-primary" />
+                            
+                        </form>
+                    </td>
                 </tr>
             </tfoot>
         </table>
@@ -80,6 +87,7 @@
     <!-- End -->
 </main>
 
+{% endblock %}
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -99,4 +107,3 @@
     });
 </script>
 
-{% endblock %}
