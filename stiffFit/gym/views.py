@@ -316,14 +316,12 @@ def trainer_profile(request):
     form = forms.TrainerProfileForm(instance=trainer)
     return render(request, 'gym/Trainer/profile.html', {'form':form})    
 
-<<<<<<< HEAD
 #PAssWord Change View
 class PasswordsChangeView(PasswordChangeView):
     
     form_class = PasswordChangeForm
     success_url = reverse_lazy('udashboard')
   
-=======
 
 #Trainer Change Password 
 def trainer_changepassword(request):
@@ -398,4 +396,3 @@ def pay_success(request):
 
 def pay_cancel(request):
     return render(request, 'gym/cancel.html')
->>>>>>> 3578b828916792721688a786ba0b21c36a9f17e0
