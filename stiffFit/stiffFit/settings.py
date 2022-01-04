@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
     'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -89,7 +90,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'stiffFit.wsgi.application'
+#WSGI_APPLICATION = 'stiffFit.wsgi.application'
+ASGI_APPLICATION = 'stiffFit.asgi.application'
 
 
 # Database
