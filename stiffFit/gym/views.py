@@ -121,21 +121,6 @@ def trainer(request):
     return render(request, 'gym/trainer.html')
 
 
-def trainee(request):
-    trainee = Trainee.objects.all()
-    package = Package.objects.all()
-    progress = Progress.objects.all()
-
-    total_trainee = trainee.count()
-    pending = progress.filter(status='Pending').count()
-    progressing = progress.filter(status='Progressing').count()
-    completed = progress.filter(status='Completed').count()
-
-    context = {'trainee': trainee, 'package': package, 'progress': progress, 'total_trainee': total_trainee,
-               'pending': pending, 'progressing': progressing, 'completed': completed}
-    return render(request, 'gym/trainee.html', context)
-
-
 def page_detail(request, id):
     page = Page.objects.get(id=id)
     return render(request, 'gym/page.html', {'page': page})
@@ -298,13 +283,7 @@ def pay_success(request):
     return render(request, 'gym/success.html')
 
 
-
-
-
-
-
 # Cancel
-
 
 def pay_cancel(request):
     return render(request, 'gym/cancel.html')
