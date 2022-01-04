@@ -44,7 +44,7 @@ admin.site.register(models.GalleryImage,GalleryImageAdmin)
 
 class SubPlanAdmin(admin.ModelAdmin):
 	list_editable=('highlight_status','max_member')
-	list_display=('title','price','max_member','highlight_status','validity_days')
+	list_display=('title','price','max_member','validity_days','highlight_status')
 admin.site.register(models.SubPlan,SubPlanAdmin)
 
 
@@ -78,3 +78,8 @@ admin.site.register(models.Subscription,SubscriptionAdmin)
 class TrainerSalaryAdmin(admin.ModelAdmin):
 	list_display=('trainer','amt','amt_date')
 admin.site.register(models.TrainerSalary,TrainerSalaryAdmin)
+
+
+class AssignSubscriberAdmin(admin.ModelAdmin):
+	list_display=('trainer','user')
+admin.site.register(models.AssignSubscriber,AssignSubscriberAdmin)
