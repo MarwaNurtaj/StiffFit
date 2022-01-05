@@ -12,18 +12,16 @@ class TestClass(TestCase):
 
     @classmethod
     def setUpTestData(cls):
-      #  Banners.objects.create( alt_text='bob')
+        Banners.objects.create( alt_text='bob')
         Trainer.objects.create( trainer='bob' , category='Yega Trainer' , email='bob@gmail.com' , phone='0711956465')
         Trainee.objects.create(trainee='bob' , age='20', email='bob@gmail.com')
         Package.objects.create(package='light_package' , price='10' , type='Gym')
         Page.objects.create(title='yoga', detail='yoga is good')
         Enquiry.objects.create(full_name='bob builder', email='bob@gmail.com',detail='how to exercise')
         Faq.objects.create(quest='DO I NEED TO WORK OUT EVERY DAY?',ans='yes')
-     
 
-    def test_Trainer_name(self):
+    
         user = Trainer.objects.create(trainer='bob' , category='Yoga Trainer' , email='bob@gmail.com' , phone='0711956465')
-        object_name = f'{user.trainer}'
         self.assertEqual('bob', object_name, "Testing name")
 
 

@@ -33,9 +33,14 @@
                         <input type="password" name="password" class="form-control form-control-sm" id="exampleInputPassword1">
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">Sign in</button>
-                    
+                    <div class="sign-up">
+                        Forgot Password? <a href="{% url 'reset_password' %}">Reset Password</a>
+                    </div>
                     <div class="sign-up">
                         Don't have an account? <a href="{% url 'register_attempt' %}">Create One</a>
+                    </div>
+                    <div class="sign-up">
+                        Want to login as trainer? <a href="{% url 'trainerlogin' %}">Trainer Login</a>
                     </div>
                 </form>
             </div>
