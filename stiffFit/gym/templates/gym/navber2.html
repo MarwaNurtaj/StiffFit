@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<style>
+    .color{
+        background: #00121b;
+    }
+    .navactive {
+        background-color: #f1c40f;
+        color: white;
+      }
+      @media only screen and (min-width: 600px) {
+        .lef
+        {
+            display: block;
+        }
+    }
+      
+</style>
+<nav class="navbar navbar-expand-lg position-sticky
+fixed-top color">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Stiff Fit</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars" style="color: aquamarine;"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <div class="d-flex align-items-center me-auto lef">
+           <div>  <a href="{% url 'udashboard' %}" class=" nav-link {% if request.path == '/udashboard' %} navactive {% endif %}">User DashBoard</a></div>
+            <a href="{% url 'udashboard' %}" class=" nav-link {% if request.path == '/udashboard' %} navactive {% endif %}">User DashBoard</a>
+            <a href="{% url 'udashboard' %}" class=" nav-link {% if request.path == '/udashboard' %} navactive {% endif %}">User DashBoard</a>
+            <a href="{% url 'udashboard' %}" class=" nav-link {% if request.path == '/udashboard' %} navactive {% endif %}">User DashBoard</a>
+            <a href="{% url 'udashboard' %}" class=" nav-link {% if request.path == '/udashboard' %} navactive {% endif %}">User DashBoard</a>
+            <div class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Dropdown
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <div><a class="dropdown-item" href="#">Action</a></div>
+                  <div><a class="dropdown-item" href="#">Another action</a></div>
+                  <div><hr class="dropdown-divider"></div>
+                  <div><a class="dropdown-item" href="#">Something else here</a></div>
+                </div>
+              </div>
+          </div>
+       
+        <form class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </nav>

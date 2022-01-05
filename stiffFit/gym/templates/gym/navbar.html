@@ -3,7 +3,7 @@
 <style>
   @import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
 
-<!--
+
   * {
     box-sizing: border-box;
   }
@@ -82,7 +82,7 @@
   background-color: #00121b;
   padding: 90px 10px; /* Large padding which will shrink on scroll (using JS) */
   transition: 0.4s; /* Adds a transition effect when the padding is decreased */
-  position: fixed; /* Sticky/fixed navbar */
+  position: st; /* Sticky/fixed navbar */
   width: 100%;
   top: 0; /* At the top */
   z-index: 99;
@@ -148,20 +148,19 @@
     
     <div >
       
-      <a class="active" href="{% url 'home'%}">Home</a>
-      <a class="dropdown",class="dropdown-toggle" data-toggle="dropdown" href="{% url 'trainer'%}">Trainer<span
-        class="caret"></span></a>
+      <a href="{% url 'home'%}"  class=" {% if request.path == '/' %}  active {% endif %}">Home</a>
+      <a class="dropdown",class="dropdown-toggle" data-toggle="dropdown" href="{% url 'trainer'%}"> Trainer<span class="caret"></span> </a>
         <ul class="dropdown-menu">
           <li><a href="{% url 'trainer' %}">Yoga Trainer</a></li>
           <li><a href="{% url 'trainer' %}">Gym Master</a></li>
           <li><a href="{% url 'trainer' %}">Nutritionist</a></li>
         </ul>
-        <a href="{% url 'udashboard' %}">User Dashboard</a>
-        <a href="{% url 'faq' %}">FAQ</a>
-        <a href="{% url 'enquiry' %}">Enquiry</a>
-        <a href="{% url 'gallery' %}">Gallery</a>
-        <a href="{% url 'pricing' %}">Pricing</a>
-        <a href="{% url 'notifs' %}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+        <a href="{% url 'udashboard' %}" class=" {% if request.path == '/udashboard' %}  active {% endif %}">User Dashboard</a>
+        <a href="{% url 'faq' %}" class=" {% if request.path == '/faq/' %}  active {% endif %}" >FAQ</a>
+        <a href="{% url 'enquiry' %}" class="{% if request.path == '/enquiry/' %}  active {% endif %}">Enquiry</a>
+        <a href="{% url 'gallery' %}" class="{% if request.path == '/gallery' %}  active {% endif %}" >Gallery</a>
+        <a href="{% url 'pricing' %}" class="{% if request.path == '/pricing' %}  active {% endif %}">Pricing</a>
+        <a href="{% url 'notifs' %}" class="{% if request.path == '/notifs' %}  active {% endif %}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
           fill="currentColor" class="bi bi-bell-fill" viewbox="0 0 16 16">
           <path
             d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z" />
