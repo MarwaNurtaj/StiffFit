@@ -9,7 +9,7 @@
     .b{
         color:rgb(127, 178, 255);
     }
-     .a:hover { 
+    .a:hover { 
         color:rgb(17, 112, 136);
       }
     .navactive {
@@ -83,7 +83,7 @@
       transform: translateX(24px);
   
     }
- 
+
     .h5 {
       color: #fff;
     }
@@ -104,7 +104,7 @@
 <nav class="navbar navbar-expand-lg position-sticky
 fixed-top color">
     <div class="container-fluid">
-      <a class="navbar-brand" href="{% url '/' %}">Stiff Fit</a>
+      <a class="navbar-brand" href="#">Stiff Fit</a>
       <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
         <i class="fas fa-bars b"></i>
       </button>
@@ -113,27 +113,37 @@ fixed-top color">
           <li class="nav-item">
             <a href="{% url 'home'%}"  class="nav-link a {% if request.path == '/' %}  navactive {% endif %}"> Home </a>
           </li>
+          {% if request.user.is_authenticated %}
           <li class="nav-item">
-            <a href="{% url 'trainer_dashboard' %}" class="nav-link a {% if request.path == '/trainer_dashboard/' %}  navactive {% endif %}"> Trainer Dashboard </a>
+            <a href="{% url 'udashboard' %}" class="nav-link a {% if request.path == '/udashboard' %}  navactive {% endif %}"> User Dashboard </a>
           </li>
+          {% endif %}
           <li class="nav-item">
             <a href="{% url 'faq' %}" class="nav-link a {% if request.path == '/faq/' %}  navactive {% endif %}" > FAQ </a>
           </li>
           <li class="nav-item">
             <a href="{% url 'enquiry' %}" class="nav-link a {% if request.path == '/enquiry/' %}  navactive {% endif %}"> Enquiry </a>
           </li>
-          {% if request.session.trainerlogin %}
           <li class="nav-item">
-            <a href="{% url 'trainerlogout' %}" class="nav-link a {% if request.path == '/trainerlogout' %}  navactive {% endif %}"> Logout </a>
+            <a href="{% url 'pricing' %}" class="nav-link a {% if request.path == '/pricing' %}  navactive {% endif %}"> Pricing </a>
+          </li>
+          {% if request.user.is_authenticated %}
+          <li class="nav-item">
+            <a href="{% url 'notifs' %}" class="nav-link a {% if request.path == '/notifs' %}  navactive {% endif %}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                fill="currentColor" class="bi bi-bell-fill" viewbox="0 0 16 16">
+                <path
+                  d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z" />
+              </svg><span class="badge bg-danger mt-1"></span></a>
           </li>
           {% endif %}
+         
           <li class="nav-item">
             <a href="#" class="nav-link a ">                   </a>
           </li>
-         
-      
-         
-          <li class="nav-item float">
+          <li class="nav-item">
+            <a href="#" class="nav-link a ">                   </a>
+          </li>
+          <li class="nav-item d">
             <input type="checkbox" class="checkbox" id="checkbox">
           <label for="checkbox" class="label">
             <i class="fas fa-moon"></i>
@@ -153,6 +163,33 @@ fixed-top color">
 
         
   
+        {% if not request.user.is_authenticated %}
+              <li class="nav-item dropdown" >
+                <a class="nav-link dropdown-toggle" href="#"id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Welcome Anonymous</a>
+    
+                <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                  <li><a class="dropdown-item" href="{% url 'register_attempt'%}">Register</a></li>
+                  <li><a class="dropdown-item" href="{% url 'login_attempt'%}">Login</a></li>
+                  
+                  <li><a class="dropdown-item" href="{% url 'trainerlogin' %}">Login As Trainer</a></li>
+                </ul>
+              </li>
+              
+              {% else %}
+              <li class="nav-item dropdown" >
+                <a class="nav-link dropdown-toggle" href="#"id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Welcome, {{request.user.username}}</a>
+    
+                
+    
+    
+                <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                  <li><a class="dropdown-item" href="{% url 'update_profile' %}">User Profile</a></li>
+                  <li><a class="dropdown-item" href="{% url 'password' %}">Chnage Password</a></li>
+                  
+                  <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                </ul>
+              </li>
+              {% endif %}
 
       </ul>
       </div>

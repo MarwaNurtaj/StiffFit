@@ -68,7 +68,7 @@ urlpatterns = [
         auth_views.PasswordResetCompleteView.as_view(template_name="gym/password_reset_done.html"), 
         name="password_reset_complete"),
     #PASSWORD cHANGE
-    path('password/', PasswordsChangeView.as_view(template_name='gym/change-password.html'),name='password'),
+    path('password/', PasswordsChangeView.as_view(template_name='gym/User/change-password.html'),name='password'),
     
       
 ]
