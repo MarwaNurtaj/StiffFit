@@ -100,3 +100,8 @@ admin.site.register(models.TrainerMsg,TrainerMsgAdmin)
 class TrainerAchivementAdmin(admin.ModelAdmin):
 	list_display=('title','image_tag')
 admin.site.register(models.TrainerAchivement,TrainerAchivementAdmin)
+
+class TrainerSubscriberReportAdmin(admin.ModelAdmin):
+	list_display=('report_msg','report_for_trainer','report_for_user','report_from_trainer','report_from_user')
+admin.site.register(models.TrainerSubscriberReport,TrainerSubscriberReportAdmin)
+

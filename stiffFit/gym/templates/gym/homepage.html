@@ -19,14 +19,16 @@
 
 {% block content %}
 <main>
+	<div class="container">
 	<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
 		<div class="carousel-inner">
 			{% for banner in banners %}
 			<div class="carousel-item {% if forloop.counter == 1 %} active {% endif %}">
-				<img src="{{banner.img.url}}" class="d-block w-100" alt="Slide 1">
+				<img src="{{banner.img.url}}" class="d-block" alt="Slide 1">
 			</div>
 			{% endfor %}
 		</div>
+		
 		<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
 			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
 			<span class="visually-hidden">Previous</span>
@@ -36,6 +38,10 @@
 			<span class="visually-hidden">Next</span>
 		</button>
 	</div>
+</div>
+<div class="container mt-3">
+
+
 <h1>Welcome to Stiff Fit</h1>
 
 
@@ -79,6 +85,7 @@
 		</div>
 	</div>
 </section>
+</div>
 <!-- Services -->
 <section class="container 4">
 	<h1 class="text-center mb-4 section-heading">Services</h1>
