@@ -123,10 +123,16 @@ def error_page(request):
 
 
 def home(request):
-    get_unread_Msg = getMsg(request)
+    
     banners = Banners.objects.all()
     gimgs = GalleryImage.objects.all().order_by('-id')[:9]
-    return render(request, 'gym/homepage.html', {'banners': banners, 'gimgs': gimgs, 'totalUnread': get_unread_Msg})
+    trainers=Trainer.objects.all()
+    subPlans=SubPlan.objects.all()
+    
+    total_trainers=trainers.count()
+    total_subPlans=subPlans.count()
+    
+    return render(request, 'gym/homepage.html', {'banners': banners, 'gimgs': gimgs, 'total_trainers': total_trainers, 'total_subPlans':total_subPlans})
 
 
 def trainer(request):
@@ -196,13 +202,13 @@ def send_mail_after_registration(email, token):
 
 
 def faq_list(request):
-    get_unread_Msg = getMsg(request) 
+    
     faq = Faq.objects.all()
-    return render(request, 'gym/faq.html', {'faqs': faq, 'totalUnread': get_unread_Msg})
+    return render(request, 'gym/faq.html', {'faqs': faq})
 
 
 def enquiry_list(request):
-    get_unread_Msg = getMsg(request) 
+    
     msg = ''
     if request.method == 'POST':
         form = forms.EnquiryForm(request.POST)
@@ -210,7 +216,7 @@ def enquiry_list(request):
             form.save()
             msg = 'Data has been saved'
     form = forms.EnquiryForm
-    return render(request, 'gym/enquiry.html', {'form': form, 'msg': msg, 'totalUnread': get_unread_Msg})
+    return render(request, 'gym/enquiry.html', {'form': form, 'msg': msg})
 
 
 def video(request):
@@ -233,11 +239,11 @@ def gallery_detail(request, id):
 
 
 def pricing(request):
-    get_unread_Msg = getMsg(request) 
+     
     pricing = SubPlan.objects.annotate(total_members=Count(
         'subscription__id')).all().order_by('price')
     dfeatures = SubPlanFeature.objects.all()
-    return render(request, 'gym/pricing.html', {'plans': pricing, 'dfeatures': dfeatures,'totalUnread':get_unread_Msg})
+    return render(request, 'gym/pricing.html', {'plans': pricing, 'dfeatures': dfeatures})
 
 
 
@@ -418,6 +424,7 @@ def trainer_subscribers(request):
     trainer_subs=AssignSubscriber.objects.filter(trainer=trainer).order_by('-id')
     return render(request, 'gym/Trainer/subscribers.html', {'trainer_subs':trainer_subs})
 
+
 #Trainers Payments
 def trainer_payments(request):
     trainer=Trainer.objects.get(pk=request.session['trainerid'])
@@ -461,3 +468,4 @@ def report_for_trainer(request):
 			msg='Invalid Response!!'
 	form=forms.ReportForTrainerForm
 	return render(request, 'gym/report_for_trainer.html',{'form':form,'msg':msg})
+    
