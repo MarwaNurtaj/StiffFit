@@ -1,3 +1,4 @@
+from django.core.mail import message
 from django.db import models
 
 from django.contrib.auth.models import User
@@ -240,7 +241,7 @@ class TrainerSalary(models.Model):
     def __str__(self):
         return str (self.trainer.trainer)
 
-# SubscriberMsg
+
 # Assign Subscriber to Trainer
 class AssignSubscriber(models.Model):
 	user=models.ForeignKey(User, on_delete=models.CASCADE,null=True)
@@ -279,3 +280,11 @@ class TrainerAchivement(models.Model):
 			return mark_safe('<img src="%s" width="80" />' % (self.img.url))
 		else:
 			return 'no-image'
+        
+#SubscriberMsg
+class TrainerMsg(models.Model):
+    user=models.ForeignKey(User, on_delete=models.CASCADE,null=True)
+    trainer=models.ForeignKey(Trainer, on_delete=models.CASCADE,null=True)
+    message=models.TextField()
+    class Meta:
+        verbose_name_plural='Messages For Trainer'
