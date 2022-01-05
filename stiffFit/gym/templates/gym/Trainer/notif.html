@@ -36,5 +36,26 @@
 		<!-- End -->
     </main>
     <!-- End -->
-    
+<script> 
+	var webSocket=new WebSocket(
+		'ws://'
+		+ window.location.host
+		+ '/ws/notifications/'
+	);
+
+	webSocket.onopen=function(event){
+		webSocket.send(JSON.stringify({
+			'message': 'From Subscriber'
+		}));
+	}
+
+	webSocket.onmessage=function(event){
+		console.log('Received');
+	}
+
+	webSocket.onclose=function(event){
+		console.log('Closed');
+	}
+
+</script>   
 {% endblock %}
