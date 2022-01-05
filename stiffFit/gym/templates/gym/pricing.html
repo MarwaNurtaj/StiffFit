@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 {% extends 'gym/main.html' %}
 {% load mathfilters %}
-{% load check_package %}
 {% load static %}
 
 
@@ -36,16 +35,11 @@
                             </ul>
 
                             {% if request.user.is_authenticated %}
-                            {% check_user_package request.user.id plan.id as check_pckg %}
-
-                            {% if check_pckg %}
-                            
-                            <a href="{% url 'checkout' plan.id %}" class="w-100 btn btn-lg btn-outline-primary">Get started</a>
+                            <a href="{% url 'checkout' plan.id %}" class="w-100 btn btn-lg btn-outline-primary">Get
+                                started</a>
                             {% else %}
-                            <a href="#" class="w-100 btn btn-lg btn-dark disabled">Purchased</a>
-                            {% endif %}
-                            {% else %}
-                            <a href="{% url 'checkout' plan.id %}" class="w-100 btn btn-lg btn-outline-primary">Get started</a>
+                            <a href="{% url 'login_attempt' %}" class="w-100 btn btn-lg btn-outline-primary">Get
+                                started</a>
                             {% endif %}
           
                         
