@@ -15,6 +15,15 @@
 		flex-direction: column;
 		justify-content: center;
 	}
+
+	.card-header {
+			color: blue;
+	}
+
+	.c{
+		background-color: blue;
+	}
+	
 </style>
 
 {% block content %}
@@ -155,6 +164,35 @@
 			</div>
 		</div>
 	</section>
+	<section>
+		<div class="col">
+			<div class="col-md">
+				<div class="card1 text-center text-black  mb-3" id="total_trainers">
+					<div class="card-header">
+						<h5 class="card-title">Trainers</h5>
+					</div>
+					<div class="card-body">
+						<h3 class="card-title">{{total_trainers}}</h3>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+		<div class="col">
+			<div class="col-md">
+				<div class="card2 text-center text-black  mb-3" id="total_subPlans">
+					<div class="card-header c ">
+						<h5 class="card-title">Packages</h5>
+					</div>
+					<div class="card-body">
+						<h3 class="card-title">{{total_subPlans}}</h3>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+
 </main>
 <!-- End -->
 
