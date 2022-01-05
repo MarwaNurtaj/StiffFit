@@ -13,6 +13,7 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+<<<<<<< HEAD
         migrations.CreateModel(
             name='Banners',
             fields=[
@@ -234,4 +235,7 @@ class Migration(migrations.Migration):
                 ('user', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
+=======
+        
+>>>>>>> 3dddefff9a2a54d3ceb847484f5e567cfb9aa53a
     ]
