@@ -123,10 +123,12 @@ def error_page(request):
 
 
 def home(request):
-    get_unread_Msg = getMsg(request)
+    
     banners = Banners.objects.all()
     gimgs = GalleryImage.objects.all().order_by('-id')[:9]
-    return render(request, 'gym/homepage.html', {'banners': banners, 'gimgs': gimgs, 'totalUnread': get_unread_Msg})
+    return render(request, 'gym/homepage.html', {'banners': banners, 'gimgs': gimgs, 
+    
+    })
 
 
 def trainer(request):
