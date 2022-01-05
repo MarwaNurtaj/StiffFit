@@ -104,7 +104,7 @@
 <nav class="navbar navbar-expand-lg position-sticky
 fixed-top color">
     <div class="container-fluid">
-      <a class="navbar-brand" href="{% url '/' %}">Stiff Fit</a>
+      <a class="navbar-brand" href="#">Stiff Fit</a>
       <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
         <i class="fas fa-bars b"></i>
       </button>
@@ -122,7 +122,7 @@ fixed-top color">
           <li class="nav-item">
             <a href="{% url 'enquiry' %}" class="nav-link a {% if request.path == '/enquiry/' %}  navactive {% endif %}"> Enquiry </a>
           </li>
-          {% if request.session.trainerlogin %}
+          {% if request.session.trainerLogin %}
           <li class="nav-item">
             <a href="{% url 'trainerlogout' %}" class="nav-link a {% if request.path == '/trainerlogout' %}  navactive {% endif %}"> Logout </a>
           </li>
