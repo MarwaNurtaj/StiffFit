@@ -45,11 +45,13 @@ urlpatterns = [
     path('trainer_changepassword',views.trainer_changepassword,name='trainer_changepassword'),
     path('trainer_notifs',views.trainer_notifs,name='trainer_notifs'),
     path('messages',views.trainer_msgs,name='messages'),
+    path('report_for_user',views.report_for_user,name='report_for_user'),
+	path('report_for_trainer',views.report_for_trainer,name='report_for_trainer'),
 
     #Password Reset
     path('reset_password/',
-     auth_views.PasswordResetView.as_view(template_name="gym/password_reset.html"),
-     name="reset_password"),
+    auth_views.PasswordResetView.as_view(template_name="gym/password_reset.html"),
+    name="reset_password"),
     path('checkout_session/<int:plan_id>',views.checkout_session,name='checkout_session'),
 	path('pay_success',views.pay_success,name='pay_success'),
 	path('pay_cancel',views.pay_cancel,name='pay_cancel'),
