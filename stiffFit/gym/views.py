@@ -198,13 +198,13 @@ def send_mail_after_registration(email, token):
 
 
 def faq_list(request):
-    get_unread_Msg = getMsg(request) 
+    
     faq = Faq.objects.all()
-    return render(request, 'gym/faq.html', {'faqs': faq, 'totalUnread': get_unread_Msg})
+    return render(request, 'gym/faq.html', {'faqs': faq})
 
 
 def enquiry_list(request):
-    get_unread_Msg = getMsg(request) 
+    
     msg = ''
     if request.method == 'POST':
         form = forms.EnquiryForm(request.POST)
@@ -212,7 +212,7 @@ def enquiry_list(request):
             form.save()
             msg = 'Data has been saved'
     form = forms.EnquiryForm
-    return render(request, 'gym/enquiry.html', {'form': form, 'msg': msg, 'totalUnread': get_unread_Msg})
+    return render(request, 'gym/enquiry.html', {'form': form, 'msg': msg})
 
 
 def video(request):
@@ -235,11 +235,11 @@ def gallery_detail(request, id):
 
 
 def pricing(request):
-    get_unread_Msg = getMsg(request) 
+     
     pricing = SubPlan.objects.annotate(total_members=Count(
         'subscription__id')).all().order_by('price')
     dfeatures = SubPlanFeature.objects.all()
-    return render(request, 'gym/pricing.html', {'plans': pricing, 'dfeatures': dfeatures,'totalUnread':get_unread_Msg})
+    return render(request, 'gym/pricing.html', {'plans': pricing, 'dfeatures': dfeatures})
 
 
 
