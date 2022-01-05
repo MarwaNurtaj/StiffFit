@@ -126,7 +126,13 @@ def home(request):
     get_unread_Msg = getMsg(request)
     banners = Banners.objects.all()
     gimgs = GalleryImage.objects.all().order_by('-id')[:9]
-    return render(request, 'gym/homepage.html', {'banners': banners, 'gimgs': gimgs, 'totalUnread': get_unread_Msg})
+    trainers=Trainer.objects.all()
+    subPlans=SubPlan.objects.all()
+    
+    total_trainers=trainers.count()
+    total_subPlans=subPlans.count()
+    
+    return render(request, 'gym/homepage.html', {'banners': banners, 'gimgs': gimgs, 'totalUnread': get_unread_Msg, 'total_trainers': total_trainers, 'total_subPlans':total_subPlans})
 
 
 def trainer(request):
@@ -418,6 +424,7 @@ def trainer_subscribers(request):
     trainer_subs=AssignSubscriber.objects.filter(trainer=trainer).order_by('-id')
     return render(request, 'gym/Trainer/subscribers.html', {'trainer_subs':trainer_subs})
 
+
 #Trainers Payments
 def trainer_payments(request):
     trainer=Trainer.objects.get(pk=request.session['trainerid'])
@@ -428,3 +435,6 @@ def trainer_payments(request):
 def trainer_msgs(request):
     data=TrainerMsg.objects.all().order_by('-id')
     return render(request, 'gym/Trainer/msgs.html',{'msgs':data})
+
+
+    
