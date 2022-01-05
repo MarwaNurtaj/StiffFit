@@ -122,7 +122,7 @@ fixed-top color">
           <li class="nav-item">
             <a href="{% url 'enquiry' %}" class="nav-link a {% if request.path == '/enquiry/' %}  navactive {% endif %}"> Enquiry </a>
           </li>
-          {% if request.session.trainerlogin %}
+          {% if request.session.trainerLogin %}
           <li class="nav-item">
             <a href="{% url 'trainerlogout' %}" class="nav-link a {% if request.path == '/trainerlogout' %}  navactive {% endif %}"> Logout </a>
           </li>
