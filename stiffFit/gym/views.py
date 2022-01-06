@@ -365,7 +365,7 @@ def checkout_session(request, plan_id):
         payment_method_types=['card'],
         line_items=[{
             'price_data': {
-                    'currency': 'inr',
+                    'currency': 'bdt',
                     'product_data': {
                         'name': plan.title,
                     },
@@ -435,6 +435,8 @@ def trainer_payments(request):
 def trainer_msgs(request):
     data=TrainerMsg.objects.all().order_by('-id')
     return render(request, 'gym/Trainer/msgs.html',{'msgs':data})
+
+ 
 
 
 # Report for user
