@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <style>
     .color{
         background: #00121b;
@@ -42,6 +43,22 @@
       color: white;
   
     }
+    body.Dark h1{
+      background-color: #292c35;
+      color: white;
+    }
+    body.Dark h2{
+      background-color: #292c35;
+      color: white;
+    }
+    body.Dark div{
+      background-color: #292c35;
+      color: white;
+    }
+    body.Dark section{
+      background-color: #292c35;
+      color: white;
+    }
   
     section.Dark firstsection {
       background-color: #292c35;
@@ -80,7 +97,7 @@
     }
   
     .checkbox:checked+.label .ball {
-      transform: translateX(24px);
+      transform: translateX(30px);
   
     }
 
@@ -104,7 +121,7 @@
 <nav class="navbar navbar-expand-lg position-sticky
 fixed-top color">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Stiff Fit</a>
+      <img src="{% static '/images/logo.png'%}" style="width: 8vw; min-width: 8px;"/>
       <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
         <i class="fas fa-bars b"></i>
       </button>
@@ -127,6 +144,10 @@ fixed-top color">
           <li class="nav-item">
             <a href="{% url 'pricing' %}" class="nav-link a {% if request.path == '/pricing' %}  navactive {% endif %}"> Pricing </a>
           </li>
+          <li class="nav-item">
+            <a href="{% url 'gallery' %}" class="nav-link a {% if request.path == '/gallery' %}  navactive {% endif %}"> Gallery </a>
+          </li>
+          
           {% if request.user.is_authenticated %}
           <li class="nav-item">
             <a href="{% url 'notifs' %}" class="nav-link a {% if request.path == '/notifs' %}  navactive {% endif %}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"

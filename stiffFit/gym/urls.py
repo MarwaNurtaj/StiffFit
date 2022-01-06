@@ -45,6 +45,7 @@ urlpatterns = [
     path('trainer_changepassword',views.trainer_changepassword,name='trainer_changepassword'),
     path('trainer_notifs',views.trainer_notifs,name='trainer_notifs'),
     path('messages',views.trainer_msgs,name='messages'),
+   
     path('report_for_user',views.report_for_user,name='report_for_user'),
 	path('report_for_trainer',views.report_for_trainer,name='report_for_trainer'),
 

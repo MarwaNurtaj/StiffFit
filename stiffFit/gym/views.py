@@ -147,7 +147,7 @@ def page_detail(request, id):
 
 def logoutUser(request):
     logout(request)
-    return redirect('login_attempt')
+    return redirect('home')
 
 
 def notifs(request):
@@ -298,7 +298,7 @@ def trainerlogin(request):
 
 def trainerlogout(request):
     del request.session['trainerLogin']
-    return redirect('/trainerlogin')
+    return redirect('home')
 
 
 # Checkout
@@ -365,7 +365,7 @@ def checkout_session(request, plan_id):
         payment_method_types=['card'],
         line_items=[{
             'price_data': {
-                    'currency': 'inr',
+                    'currency': 'bdt',
                     'product_data': {
                         'name': plan.title,
                     },
@@ -436,7 +436,10 @@ def trainer_msgs(request):
     data=TrainerMsg.objects.all().order_by('-id')
     return render(request, 'gym/Trainer/msgs.html',{'msgs':data})
 
+ 
 
+
+    
 # Report for user
 def report_for_user(request):
 	trainer=Trainer.objects.get(id=request.session['trainerid'])
