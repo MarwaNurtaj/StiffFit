@@ -123,7 +123,7 @@ def error_page(request):
 
 
 def home(request):
-    get_unread_Msg = getMsg(request)
+    
     banners = Banners.objects.all()
     gimgs = GalleryImage.objects.all().order_by('-id')[:9]
     trainers=Trainer.objects.all()
@@ -132,7 +132,7 @@ def home(request):
     total_trainers=trainers.count()
     total_subPlans=subPlans.count()
     
-    return render(request, 'gym/homepage.html', {'banners': banners, 'gimgs': gimgs, 'totalUnread': get_unread_Msg, 'total_trainers': total_trainers, 'total_subPlans':total_subPlans})
+    return render(request, 'gym/homepage.html', {'banners': banners, 'gimgs': gimgs, 'total_trainers': total_trainers, 'total_subPlans':total_subPlans})
 
 
 def trainer(request):
@@ -202,13 +202,13 @@ def send_mail_after_registration(email, token):
 
 
 def faq_list(request):
-    get_unread_Msg = getMsg(request) 
+    
     faq = Faq.objects.all()
-    return render(request, 'gym/faq.html', {'faqs': faq, 'totalUnread': get_unread_Msg})
+    return render(request, 'gym/faq.html', {'faqs': faq})
 
 
 def enquiry_list(request):
-    get_unread_Msg = getMsg(request) 
+    
     msg = ''
     if request.method == 'POST':
         form = forms.EnquiryForm(request.POST)
@@ -216,7 +216,7 @@ def enquiry_list(request):
             form.save()
             msg = 'Data has been saved'
     form = forms.EnquiryForm
-    return render(request, 'gym/enquiry.html', {'form': form, 'msg': msg, 'totalUnread': get_unread_Msg})
+    return render(request, 'gym/enquiry.html', {'form': form, 'msg': msg})
 
 
 def video(request):
@@ -239,11 +239,11 @@ def gallery_detail(request, id):
 
 
 def pricing(request):
-    get_unread_Msg = getMsg(request) 
+     
     pricing = SubPlan.objects.annotate(total_members=Count(
         'subscription__id')).all().order_by('price')
     dfeatures = SubPlanFeature.objects.all()
-    return render(request, 'gym/pricing.html', {'plans': pricing, 'dfeatures': dfeatures,'totalUnread':get_unread_Msg})
+    return render(request, 'gym/pricing.html', {'plans': pricing, 'dfeatures': dfeatures})
 
 
 
@@ -437,7 +437,10 @@ def trainer_msgs(request):
     return render(request, 'gym/Trainer/msgs.html',{'msgs':data})
 
 
+<<<<<<< HEAD
     
+=======
+>>>>>>> ce62528426b3afeae49eac8792ee7a1b29f922cb
 # Report for user
 def report_for_user(request):
 	trainer=Trainer.objects.get(id=request.session['trainerid'])
@@ -469,3 +472,7 @@ def report_for_trainer(request):
 			msg='Invalid Response!!'
 	form=forms.ReportForTrainerForm
 	return render(request, 'gym/report_for_trainer.html',{'form':form,'msg':msg})
+<<<<<<< HEAD
+=======
+    
+>>>>>>> ce62528426b3afeae49eac8792ee7a1b29f922cb
