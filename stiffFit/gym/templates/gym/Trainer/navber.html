@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <style>
     .color{
         background: #00121b;
@@ -9,7 +10,7 @@
     .b{
         color:rgb(127, 178, 255);
     }
-     .a:hover { 
+    .a:hover { 
         color:rgb(17, 112, 136);
       }
     .navactive {
@@ -30,6 +31,22 @@
   
     * {
       box-sizing: border-box;
+    }
+    body.Dark h1{
+      background-color: #292c35;
+      color: white;
+    }
+    body.Dark h2{
+      background-color: #292c35;
+      color: white;
+    }
+    body.Dark div{
+      background-color: #292c35;
+      color: white;
+    }
+    body.Dark section{
+      background-color: #292c35;
+      color: white;
     }
   
     body.Dark {
@@ -104,7 +121,7 @@
 <nav class="navbar navbar-expand-lg position-sticky
 fixed-top color">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Stiff Fit</a>
+      <img src="{% static '/images/logo.png'%}" style="width: 8vw; min-width: 8px;"/>
       <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
         <i class="fas fa-bars b"></i>
       </button>
