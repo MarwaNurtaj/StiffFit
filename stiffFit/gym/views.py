@@ -147,7 +147,7 @@ def page_detail(request, id):
 
 def logoutUser(request):
     logout(request)
-    return redirect('login_attempt')
+    return redirect('home')
 
 
 def notifs(request):
@@ -298,7 +298,7 @@ def trainerlogin(request):
 
 def trainerlogout(request):
     del request.session['trainerLogin']
-    return redirect('/trainerlogin')
+    return redirect('home')
 
 
 # Checkout
