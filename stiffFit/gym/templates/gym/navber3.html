@@ -144,6 +144,10 @@ fixed-top color">
           <li class="nav-item">
             <a href="{% url 'pricing' %}" class="nav-link a {% if request.path == '/pricing' %}  navactive {% endif %}"> Pricing </a>
           </li>
+          <li class="nav-item">
+            <a href="{% url 'gallery' %}" class="nav-link a {% if request.path == '/gallery' %}  navactive {% endif %}"> Gallery </a>
+          </li>
+          
           {% if request.user.is_authenticated %}
           <li class="nav-item">
             <a href="{% url 'notifs' %}" class="nav-link a {% if request.path == '/notifs' %}  navactive {% endif %}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
