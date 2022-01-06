@@ -439,6 +439,10 @@ def trainer_msgs(request):
  
 
 
+<<<<<<< HEAD
+    
+=======
+>>>>>>> ce62528426b3afeae49eac8792ee7a1b29f922cb
 # Report for user
 def report_for_user(request):
 	trainer=Trainer.objects.get(id=request.session['trainerid'])
@@ -470,4 +474,7 @@ def report_for_trainer(request):
 			msg='Invalid Response!!'
 	form=forms.ReportForTrainerForm
 	return render(request, 'gym/report_for_trainer.html',{'form':form,'msg':msg})
+<<<<<<< HEAD
+=======
     
+>>>>>>> ce62528426b3afeae49eac8792ee7a1b29f922cb
